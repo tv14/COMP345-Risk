@@ -1,6 +1,5 @@
-// Zachary Eugenio, 26518257
-// COMP 345 assignment 1, part 2: Game Driver
-// note: Some parts are to be implemented separately. These parts have been denoted as such.
+// game driver
+// lots of unimplemented stuff and things to change later on.
 
 #include <iostream>
 #include <vector>
@@ -11,8 +10,9 @@
 
 using namespace std;
 
-// turns a string into its lowercase equivalent and returns it. not necessary in this program,
-// but may be needed in the final project (for string comparison purposes).
+/*
+ * Turns a string into its lowercase equivalent and returns it. might be needed for comparisons later.
+ */
 string lowercase(string str) {
 	string lowercasestr = str;
 	for (unsigned int i = 0; i < lowercasestr.length(); ++i) {
@@ -24,8 +24,10 @@ string lowercase(string str) {
 
 // free functions used in main phase:
 
-// gives the user the option to reinforce one of their countries
-// param p is the player whose turn it is
+/*
+ * Gives the user the option to reinforce one of their countries
+ * param p is the player whose turn it is
+ */
 void reinforce(player& p) {
 	// p.givearmies(); // grant armies at start of turn, implemented separately
 
@@ -75,9 +77,10 @@ void reinforce(player& p) {
 	}
 }
 
-// asks the player if they wish to launch any attacks on adjacent countries
-// (adjacency is verified separately)
-// param p is the player whose turn it is
+/* 
+ * Asks the player if they wish to launch any attacks on adjacent countries (adjacency is verified separately)
+ * param p is the player whose turn it is
+ */
 void attack(player& p) {
 	cout << "--Attack Phase--" << endl;
 	cout << "Select a country to attack (leave blank to skip): ";
@@ -112,8 +115,10 @@ void attack(player& p) {
 	}
 }
 
-// lets the player move their armies between the countries they own
-// param p is the player whose turn it is
+/* 
+ * Lets the player move their armies between the countries they own
+ * param p is the player whose turn it is
+ */
 void fortify(player& p) {
 	string source;
 	string target;
@@ -229,9 +234,11 @@ int main() {
 	// =====================================
 	// stage 2: main phase
 	// =====================================
-	// An iterator loops through playerlist until there is only one player remaining, who is then declared the winner.
-	// For each player, go through reinforce, attack and fortify stages. Advance the iterator at the end of each turn.
-	// note: in the actual game, there would likely be a certain number of turns that must pass before players are permitted to attack others.
+	/* 
+	 * An iterator loops through playerlist until there is only one player remaining, who is then declared the winner.
+	 * For each player, go through reinforce, attack and fortify stages. Advance the iterator at the end of each turn.
+	 * note: in the actual game, there would likely be a certain number of turns that must pass before players are permitted to attack others.
+	 */
 
 	vector<player>::iterator it = playerlist.begin(); // iterator is placed at beginning of playerlist
 	while (playerlist.size() > 1) {
@@ -248,7 +255,6 @@ int main() {
 	}
 
 	// reaching this point means there is only one player left, so they win the match
-	// last player is declared winner
 	cout << "\nCongratulations, " << playerlist[0].getname() << " wins the game!" <<endl;
 
 	cout << "\n[end of program. Press enter to exit.]";
