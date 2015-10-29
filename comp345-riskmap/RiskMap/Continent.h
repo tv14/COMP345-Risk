@@ -17,15 +17,22 @@ public:
 	string Continent::getContinentName();
 	vector< string > Continent::getCountries();
 	int Continent::getNumCountries();
+	string Continent::getOwner();
+	int Continent::getArmyBonus();
 
 	void Continent::setContinentName(string name);
 	void Continent::setCountries(vector< string > list);
+	void Continent::setOwner(string o);
+	void Continent::setArmyBonus(int b);
+
 	void Continent::addCountry(string c);
 
 private:
 
 	string continentName;
 	vector< string > countries;
+	string owner;
+	int armyBonus;
 
 };
 

@@ -47,6 +47,18 @@ int Continent::getNumCountries()
 	return countries.size();
 }
 
+//Returns the name of the player controlling this continent
+string Continent::getOwner()
+{
+	return owner;
+}
+
+//Returns the number of armies a player receives per turn for controlling this continent
+int Continent::getArmyBonus()
+{
+	return armyBonus;
+}
+
 //Sets the name of the continent
 void Continent::setContinentName(string name)
 {
@@ -57,6 +69,18 @@ void Continent::setContinentName(string name)
 void Continent::setCountries(vector< string > list)
 {
 	countries = list;
+}
+
+//Set the name of the player controlling this continent
+void Continent::setOwner(string o)
+{
+	owner = o;
+}
+
+//Set the bonus number of armies the controlling player receives per turn
+void Continent::setArmyBonus(int b)
+{
+	armyBonus = b;
 }
 
 //Adds a country to this continent

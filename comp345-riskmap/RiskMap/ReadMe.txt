@@ -2,10 +2,8 @@
     CONSOLE APPLICATION : RiskMap Project Overview
 ========================================================================
 
-AppWizard has created this RiskMap application for you.
-
 This file contains a summary of what you will find in each of the files that
-make up your RiskMap application.
+make up the RiskMap application.
 
 
 RiskMap.vcxproj
@@ -34,7 +32,11 @@ StdAfx.h, StdAfx.cpp
 /////////////////////////////////////////////////////////////////////////////
 Other notes:
 
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
+Make sure incremental linking is off otherwise the project will not run. I still don't
+understand the reason for this behaviour but it is not a necessary compilation feature even though
+it is turned on by default in Visual Studio. 
+
+There is no persistence, so every successive run of the program uses an empty map. 
+Start by initializing a continent, as you will be prompted, and the menu will appear afterward.
 
 /////////////////////////////////////////////////////////////////////////////

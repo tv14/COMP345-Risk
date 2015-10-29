@@ -68,6 +68,18 @@ void Country::setArmyCount(int a)
 	armyCount = a;
 }
 
+//Increment the number of armies in this country
+void Country::addArmies(int add)
+{
+	armyCount += add;
+}
+
+//Remove a given number of armies from this country
+void Country::removeArmies(int remove)
+{
+	armyCount -= remove;
+}
+
 //Return the number of countries adjacent to this
 int Country::getNumConns()
 {

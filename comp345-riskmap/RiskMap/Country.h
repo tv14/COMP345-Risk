@@ -19,6 +19,8 @@ public:
 	void Country::setConnections(vector<string> conns);
 	int Country::getArmyCount();
 	void Country::setArmyCount(int a);
+	void Country::addArmies(int add);
+	void Country::removeArmies(int remove);
 	int Country::getNumConns();
 	string Country::getOwner();
 	void Country::setOwner(string o);
