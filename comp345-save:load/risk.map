@@ -1,0 +1,18 @@
+[Map]
+image=LP.bmp
+wrap=no
+scroll=none
+author=Ashley
+warn=yes
+
+[Continents]
+testt=10
+Park=3
+Left Side=2
+Top and Bottom=3
+Right Side=2
+
+[Territories]
+3P,184,111,Park,2L,4P,10TB
+5RS,353,64,Right Side,10TB,6RS,4P
+59LS,39,13,Left Side,10TB,8LS,1L
