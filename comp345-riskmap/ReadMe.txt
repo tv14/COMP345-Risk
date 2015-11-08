@@ -1,6 +1,8 @@
 ========================================================================
     CONSOLE APPLICATION : RiskMap Project Overview
 ========================================================================
+       Main method is located in RiskMap.cpp
+========================================================================
 
 This file contains a summary of what you will find in each of the files that
 make up the RiskMap application.
