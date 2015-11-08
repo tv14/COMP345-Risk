@@ -1,66 +1,42 @@
-/* 
- * File:   Country.h
- * Author: Tam
- *
- * Created on October 13, 2015, 9:39 PM
- */
-
 #ifndef COUNTRY_H
-#define	COUNTRY_H
+#define COUNTRY_H
+
 #include <string>
+#include <vector>
+#include "Continent.h"
 #include "Player.h"
+
 using namespace std;
 
 class Country {
 public:
-    Country();
-    Country( Player owner, int countryarmy, std::string name);
-    Player getOwner();
-    int getCountryArmy();
-    void setOwner(Player newowner);
-    void setCountryArmy(int newarmy);
-    string getCountryName();
-    void setCountryName(string newname);
-    void setAll(Player newowner, int newarmy, string newname);
-    void addAdjacent(Country othercountry);
-    bool isAdjacent(Country othercountry);
-    friend bool operator==(Country &c1, Country &c2);
-    friend bool operator!=(Country &c1, Country &c2);
+	Country();
+	Country(string name, string continent);
+	Country(const Country &obj);
+	~Country();
+	string getName();
+	void setName(string name);
+	vector<string> getConnections();
+	void setConnections(vector<string> conns);
+	int getArmyCount();
+	void setArmyCount(int a);
+	void addArmies(int add);
+	void removeArmies(int remove);
+	int getNumConns();
+	Player* getOwner();
+	void setOwner(Player* o);
+	string getContinent();
+	void setContinent(string cont);
+	bool isAdjacent(string c);
+	void addConnection(Country &conn);
+        void setAll(Player &o, int armycount, string name, string continent);
 
 private:
-    Player* owner;
-    int countryarmy;
-    std::string name;
-    std::string adjacent[100]={""};
-    
-        
+	string name;
+	vector<string> connections;
+	string continent;
+	Player* owner;
+	int armyCount;
 };
-inline Player Country::getOwner() {
-    return *owner;
-}
-inline int Country::getCountryArmy() {
-    return this->countryarmy;
-}
-inline string Country::getCountryName(){
-    return this->name;
-}
-inline void Country::setCountryArmy(int newarmy) {
-    this->countryarmy=newarmy;
-}
-inline void Country::setOwner(Player newowner) {
-    this->owner=&newowner;
-}
-inline void Country::setCountryName(string newname){
-    this->name=newname;
-}
-/*
- * Method used to quickly change the Country's variables at once.
- */
-inline void Country::setAll(Player newowner, int newarmy, string newname) {
-    this->owner=&newowner;
-    this->countryarmy=newarmy;
-    this->name=newname;
-    
-}
-#endif	/* COUNTRY_H */
 
+#endif

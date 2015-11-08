@@ -9,6 +9,9 @@ using namespace std;
  */
 Player::Player() {
     this->name="";
+    currentreinforcements=0;
+    battleswon=0;
+    ai=false;
 }
 
 /*
@@ -16,7 +19,21 @@ Player::Player() {
  */
 Player::Player(std::string name) {
     this->name=name;
+    currentreinforcements=0;
+    battleswon=0;
+    ai=false;
 }
+
+/*
+ * Copy Constructor
+ */
+Player::Player(const Player&p) {
+    name=p.name;
+    currentreinforcements=p.currentreinforcements;
+    battleswon=p.battleswon;
+    ai=p.ai;
+}
+
 /*
  * Equals method that determines two players are the same if they have the same name and not equal if they do not.
  */

@@ -7,13 +7,13 @@
 
 #ifndef SELECTANDBATTLE_H
 #define	SELECTANDBATTLE_H
-#include "Player.h"
+
 #include "Battle.h"
 #include "Country.h"
 
 class SelectandBattle {
 public:
-    SelectandBattle(Player p1,Country countries[],const int NUMBER_OF_COUNTRIES);
+    SelectandBattle(Player &p1,Country countries[],const int NUMBER_OF_COUNTRIES);
     void selectAttackingCountry();
     void selectDefendingCountry();
     bool noEnemy();
@@ -22,7 +22,7 @@ public:
     void doBattle();
     
 private:
-    Player currentplayer;
+    Player* currentplayer;
     Country* listofcountries[100];
     int NUMBER_OF_COUNTRIES;
     Country* attackingcountry;

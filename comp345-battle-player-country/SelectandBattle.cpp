@@ -1,13 +1,14 @@
 #include "SelectandBattle.h"
 
+using namespace std;
 
 
-SelectandBattle::SelectandBattle(Player p1, Country countries[], const int NUMBER_OF_COUNTRIES) {
+SelectandBattle::SelectandBattle(Player &p1, Country countries[], const int NUMBER_OF_COUNTRIES) {
     for (int i=0;i<NUMBER_OF_COUNTRIES;i++)
     {
         this->listofcountries[i]=&countries[i];
     }
-    this->currentplayer=p1;
+    this->currentplayer=&p1;
     this->NUMBER_OF_COUNTRIES=NUMBER_OF_COUNTRIES;
 }
 
@@ -25,9 +26,9 @@ void SelectandBattle::selectAttackingCountry() {
         
         for (int i=0;i<this->NUMBER_OF_COUNTRIES;i++)//checks for all countries
         {
-            if (listofcountries[i]->getCountryName()==chosenatkcountry)//program checks if user inputted a proper country
+            if (listofcountries[i]->getName()==chosenatkcountry)//program checks if user inputted a proper country
             {
-                if (listofcountries[i]->getOwner().getPlayerName()==this->currentplayer.getPlayerName())//checks to see if user inputted a country he owns
+                if (listofcountries[i]->getOwner()->getPlayerName()==this->currentplayer->getPlayerName())//checks to see if user inputted a country he owns
                 {
                     this->attackingcountry=this->listofcountries[i];
                     
@@ -37,7 +38,7 @@ void SelectandBattle::selectAttackingCountry() {
                     }
                     else
                     {
-                         std::cout<< "You are attacking with: \t" << listofcountries[i]->getCountryName() <<std::endl;
+                         std::cout<< "You are attacking with: \t" << listofcountries[i]->getName() <<std::endl;
                          check=false;
                     }
                 }
@@ -55,9 +56,9 @@ bool SelectandBattle::noEnemy() {
    bool noenemy=true;
    for (int i=0;i<this->NUMBER_OF_COUNTRIES;i++)
    {
-       if (attackingcountry->isAdjacent(*listofcountries[i]))
+       if (attackingcountry->isAdjacent(listofcountries[i]->getName()))
        {
-           if (attackingcountry->getOwner().getPlayerName()!=listofcountries[i]->getOwner().getPlayerName())
+           if (attackingcountry->getOwner()->getPlayerName()!=listofcountries[i]->getOwner()->getPlayerName())
            {
                noenemy=false;
                break;
@@ -78,13 +79,13 @@ void SelectandBattle::selectDefendingCountry() {
         std::cin >> chosendefcountry;
         for (int i=0;i<this->NUMBER_OF_COUNTRIES;i++)
         {
-            if (listofcountries[i]->getCountryName()==chosendefcountry)//program checks if the user inputted a proper country
+            if (listofcountries[i]->getName()==chosendefcountry)//program checks if the user inputted a proper country
             {
                 
-                if (this->attackingcountry->isAdjacent(*listofcountries[i]) && attackingcountry->getOwner().getPlayerName()!=listofcountries[i]->getOwner().getPlayerName())//checks to see if the inputted country is an adjacent enemy country
+                if (this->attackingcountry->isAdjacent(listofcountries[i]->getName()) && attackingcountry->getOwner()->getPlayerName()!=listofcountries[i]->getOwner()->getPlayerName())//checks to see if the inputted country is an adjacent enemy country
                 {
                     this->defendingcountry=this->listofcountries[i];
-                    std::cout<< "You are attacking:\t" << listofcountries[i]->getCountryName() << std::endl;
+                    std::cout<< "You are attacking:\t" << listofcountries[i]->getName() << std::endl;
                     check=false;
                 }
             }
@@ -99,7 +100,7 @@ void SelectandBattle::selectDefendingCountry() {
  */
 void SelectandBattle::doBattle() {
     bool check=true;
-    Battle thebattle(this->attackingcountry->getCountryArmy(),this->defendingcountry->getCountryArmy());
+    Battle thebattle(this->attackingcountry->getArmyCount(),this->defendingcountry->getArmyCount());
     std::cout << thebattle <<std::endl;
     while(check) {
         std::cout << "Press \"b\" to do a single battle, \"a\" to Allin, \"s\" to check army status and \"q\" to quit" << std::endl; //user inputs choice
@@ -134,12 +135,12 @@ void SelectandBattle::doBattle() {
         }
         
     }
-    this->attackingcountry->setCountryArmy(thebattle.getAttackerArmy()); //the countries are updated after the battle has ended
-    this->defendingcountry->setCountryArmy(thebattle.getDefenderArmy());
+    this->attackingcountry->setArmyCount(thebattle.getAttackerArmy()); //the countries are updated after the battle has ended
+    this->defendingcountry->setArmyCount(thebattle.getDefenderArmy());
     
     std::cout << thebattle <<std::endl;
     
-    if (this->defendingcountry->getCountryArmy()==0) //if the defenders have been annihilated, the program will ask the user to move a certain number of units into the conquered country
+    if (this->defendingcountry->getArmyCount()==0) //if the defenders have been annihilated, the program will ask the user to move a certain number of units into the conquered country
     {
         check=true;
         while (check) 
@@ -152,9 +153,10 @@ void SelectandBattle::doBattle() {
             
             if (movingarmy>=thebattle.getNumberOfAttackDice() && movingarmy<thebattle.getAttackerArmy()) //checks to see that the user moves equal to or more than his last attacking number of dice
             {                                                                                              // but leaves at least 1 army behind in his attacking country.
-                this->attackingcountry->setCountryArmy(this->attackingcountry->getCountryArmy()-movingarmy);
+                this->attackingcountry->setArmyCount(this->attackingcountry->getArmyCount()-movingarmy);
                 this->defendingcountry->setOwner(this->attackingcountry->getOwner());
-                this->defendingcountry->setCountryArmy(movingarmy);
+                this->defendingcountry->setArmyCount(movingarmy);
+                this->currentplayer->addBattlesWon();
                 check=false;
             }
         }
