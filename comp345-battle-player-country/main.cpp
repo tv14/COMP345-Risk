@@ -14,6 +14,7 @@
 #include "PlayerView.h"
 #include "Player.h"
 #include "SelectandBattle.h"
+#include "Fortification.h"
 
 
 using namespace std;
@@ -55,7 +56,14 @@ std::cout << "There are two continents(cont1, cont2). c0-c3 reside in cont1 and 
     countries[2].addConnection(countries[3]);
     countries[2].addConnection(countries[4]);
     countries[3].addConnection(countries[4]);
-   
+    
+  
+    Fortification fort(p1,countries,5);//fortification phase. Only requires these 4 lines
+    fort.setMovingFrom();
+    fort.setMovingTo();
+    fort.moveArmy();
+    
+    
    
    
     PlayerSubject *ps1=new PlayerSubject(p1, countries, 5, continents,2 );//create observable and observer classes

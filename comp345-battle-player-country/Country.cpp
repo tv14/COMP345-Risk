@@ -44,13 +44,13 @@ void Country::setName(string name)
 	this->name = name;
 }
 
-//Returns the list of countries that are adjacent to this
+//Returns the list of countries by name that are adjacent to this
 vector<string> Country::getConnections()
 {
 	return connections;
 }
 
-//Receive a list of countries adjacent to this, and the count
+//Receive a list of countries names adjacent to this, and the count
 void Country::setConnections(vector<string> conns)
 {
 	connections = conns;
@@ -86,7 +86,7 @@ int Country::getNumConns()
 	return connections.size();
 }
 
-//Return the name of the player who owns this country
+//Return the player who owns this country
 Player* Country::getOwner()
 {
 	return owner;
@@ -124,6 +124,7 @@ bool Country::isAdjacent(string c)
 void Country::addConnection(Country &conn)
 {
 	connections.push_back(conn.getName());
+        connectionsbycountry.push_back(conn);
 	if (!conn.isAdjacent(name)) {
 		conn.addConnection(*this);
 	}
@@ -135,3 +136,41 @@ void Country::setAll(Player &o, int armycount, string name, string continent) {
     this->name=name;
     this->continent=continent;
 }
+
+//returns a list of adjacent countries by class
+vector<Country> Country::getConnectionsByCountry() {
+    return this->connectionsbycountry;
+}
+//sets a list of adjacent countries by class
+void Country::setConnectionsByCountry(vector<Country> conns) {
+    this->connectionsbycountry=conns;
+}
+
+
+
+/*
+ * {
+    
+    if (this->Country::getOwner()->getPlayerName()==c.getOwner()->getPlayerName())
+    {
+        if (this->Country::isAdjacent(c.getName()))
+        {
+            return true;
+        }
+        else 
+        {
+            for (int i=0;i<this->Country::getConnectionsByCountry().size();i++)
+            {
+                Country::getConnectionsByCountry()[i].pathTo(c);
+            }
+            
+        } 
+    }
+    else
+    {
+        return false;
+    }
+    
+    
+}
+ */

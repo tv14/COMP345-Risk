@@ -30,10 +30,14 @@ public:
 	bool isAdjacent(string c);
 	void addConnection(Country &conn);
         void setAll(Player &o, int armycount, string name, string continent);
+        vector<Country> getConnectionsByCountry();
+        void setConnectionsByCountry(vector<Country> conns);
+       
 
 private:
 	string name;
 	vector<string> connections;
+        vector<Country> connectionsbycountry;
 	string continent;
 	Player* owner;
 	int armyCount;

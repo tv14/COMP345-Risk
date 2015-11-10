@@ -34,7 +34,7 @@ void SelectandBattle::selectAttackingCountry() {
                     
                     if (this->SelectandBattle::noEnemy())//returns a statement if there is no adjacent enemy country to attack.
                     {
-                        std::cout <<"There is no adjacent enemy country to attack. Please choose another country" <<std::endl;
+                        std::cout <<"There is no adjacent enemy country to attack. Please choose another country." <<std::endl;
                     }
                     else
                     {
