@@ -1,43 +1,42 @@
 #ifndef COUNTRY_H
 #define COUNTRY_H
 
+#include "stdafx.h"
 #include <string>
 #include <vector>
-#include "Continent.h"
 #include "Player.h"
 
 using namespace std;
 
 class Country {
 public:
-	Country();
-	Country(string name, string continent);
-	Country(const Country &obj);
-	~Country();
-	string getName();
-	void setName(string name);
-	vector<string> getConnections();
-	void setConnections(vector<string> conns);
-	int getArmyCount();
-	void setArmyCount(int a);
-	void addArmies(int add);
-	void removeArmies(int remove);
-	int getNumConns();
-	Player* getOwner();
-	void setOwner(Player* o);
-	string getContinent();
-	void setContinent(string cont);
-	bool isAdjacent(string c);
-	void addConnection(Country &conn);
+	Country::Country();
+	Country::Country(string name, string continent);
+	Country::Country(const Country &obj);
+	Country::~Country();
+	string Country::getName();
+	void Country::setName(string name);
+	vector<string> Country::getConnections();
+	void Country::setConnections(vector<string> conns);
+	int Country::getArmyCount();
+	void Country::setArmyCount(int a);
+	void Country::addArmies(int add);
+	void Country::removeArmies(int remove);
+	int Country::getNumConns();
+	Player* Country::getOwner();
+	void Country::setOwner(Player* o);
+	string Country::getContinent();
+	void Country::setContinent(string cont);
+	bool Country::isAdjacent(string& c);
+	void Country::addConnection(Country &conn);
     void setAll(Player &o, int armycount, string name, string continent);
     vector<Country> getConnectionsByCountry();
     void setConnectionsByCountry(vector<Country> conns);
-       
 
 private:
 	string name;
 	vector<string> connections;
-        vector<Country> connectionsbycountry;
+    vector<Country> connectionsByCountry;
 	string continent;
 	Player* owner;
 	int armyCount;

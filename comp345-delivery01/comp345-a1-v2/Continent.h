@@ -1,6 +1,7 @@
 #ifndef CONTINENT_H
 #define CONTINENT_H
 
+#include "stdafx.h"
 #include <string>
 #include <vector>
 #include "Country.h"
@@ -10,28 +11,33 @@ using namespace std;
 
 class Continent {
 public:
-	Continent();
-	Continent(string name);
-	Continent(const Continent &c);
-	~Continent();
-	string getContinentName();
-	vector< string > getCountries();
-	int getNumCountries();
-	Player getOwner();
-	int getArmyBonus();
 
-	void setContinentName(string name);
-	void setCountries(vector< string > list);
-	void setOwner(Player o);
-	void setArmyBonus(int b);
+	Continent::Continent();
+	Continent::Continent(string name);
+	Continent::Continent(const Continent &c);
+	Continent::~Continent();
+	string Continent::getContinentName();
+	vector< Country > Continent::getCountries();
+	int Continent::getNumCountries();
+	Player Continent::getOwner();
+	int Continent::getArmyBonus();
 
-	void addCountry(string c);
+	void Continent::setContinentName(string name);
+	void Continent::setCountries(vector< Country > list);
+	void Continent::setOwner(Player o);
+	void Continent::setArmyBonus(int b);
+
+	void Continent::addCountry(Country c);
+
+	bool Continent::isPlayerOwned();
 
 private:
+
 	string continentName;
-	vector< string > countries;
+	vector< Country > countries;
 	Player* owner;
 	int armyBonus;
+
 };
 
 #endif

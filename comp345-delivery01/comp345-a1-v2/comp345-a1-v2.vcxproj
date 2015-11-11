@@ -40,7 +40,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -82,8 +82,10 @@
     <ClCompile Include="driver.cpp" />
     <ClCompile Include="Fortification.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="SelectandBattle.cpp" />
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Battle.h" />
@@ -91,8 +93,11 @@
     <ClInclude Include="Country.h" />
     <ClInclude Include="driver.h" />
     <ClInclude Include="Fortification.h" />
+    <ClInclude Include="MapManager.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="SelectandBattle.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

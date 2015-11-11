@@ -1,4 +1,4 @@
-
+#include "stdafx.h"
 #include "Continent.h"
 #include "Country.h"
 #include <string>
@@ -36,7 +36,7 @@ string Continent::getContinentName()
 }
 
 //Returns the list of countries in the continent
-vector< string > Continent::getCountries()
+vector< Country > Continent::getCountries()
 {
 	return countries;
 }
@@ -66,7 +66,7 @@ void Continent::setContinentName(string name)
 }
 
 //Sets the list of countries and the number of entries in the list
-void Continent::setCountries(vector< string > list)
+void Continent::setCountries(vector< Country > list)
 {
 	countries = list;
 }
@@ -84,7 +84,19 @@ void Continent::setArmyBonus(int b)
 }
 
 //Adds a country to this continent
-void Continent::addCountry(string c)
+void Continent::addCountry(Country c)
 {
 	countries.push_back(c);
+}
+
+bool Continent::isPlayerOwned() {
+	string player = countries.at(0).getOwner()->getPlayerName();
+	bool owned = true;
+
+	for (Country c : countries) {
+		if (c.getOwner()->getPlayerName() != player)
+			owned = false;
+	}
+
+	return owned;
 }
