@@ -37,7 +37,7 @@ public:
 private:
 	string name;
 	vector<string> connections;
-        vector<Country> connectionsbycountry;
+    vector<Country> connectionsbycountry;
 	string continent;
 	Player* owner;
 	int armyCount;

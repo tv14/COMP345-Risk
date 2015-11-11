@@ -124,7 +124,7 @@ bool Country::isAdjacent(string c)
 void Country::addConnection(Country &conn)
 {
 	connections.push_back(conn.getName());
-        connectionsbycountry.push_back(conn);
+    connectionsbycountry.push_back(conn);
 	if (!conn.isAdjacent(name)) {
 		conn.addConnection(*this);
 	}

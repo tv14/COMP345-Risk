@@ -15,23 +15,27 @@ public:
 	Continent(const Continent &c);
 	~Continent();
 	string getContinentName();
-	vector< string > getCountries();
+	vector< Country > getCountries();
 	int getNumCountries();
-	Player getOwner();
+	Player* getOwner();
 	int getArmyBonus();
+	int getCaptureCount();
 
 	void setContinentName(string name);
-	void setCountries(vector< string > list);
-	void setOwner(Player o);
+	void setCountries(vector< Country > list);
+	void setOwner(Player* o);
 	void setArmyBonus(int b);
+	void setCaptureCount(int cc);
 
-	void addCountry(string c);
+	void addCountry(Country c);
+	bool Continent::isPlayerOwned();
 
 private:
 	string continentName;
-	vector< string > countries;
+	vector< Country > countries;
 	Player* owner;
 	int armyBonus;
+	int captureCount;
 };
 
 #endif
