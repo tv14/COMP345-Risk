@@ -15,6 +15,7 @@
 #include "Player.h"
 #include "SelectandBattle.h"
 #include "Fortification.h"
+#include "Reinforcement.h"
 
 
 using namespace std;
@@ -36,6 +37,8 @@ std::cout << "There are two continents(cont1, cont2). c0-c3 reside in cont1 and 
     Continent continents[2];
     continents[0].setContinentName("cont1");
     continents[1].setContinentName("cont2");
+    continents[0].setArmyBonus(3);
+    continents[1].setArmyBonus(1);
     
     continents[0].addCountry("c0");
     continents[0].addCountry("c1");
@@ -46,7 +49,7 @@ std::cout << "There are two continents(cont1, cont2). c0-c3 reside in cont1 and 
     countries[0].setAll(p1,5,"c0", "cont1");//name and continent determined during map creation, owner and army size determined during pregame setup.
     countries[1].setAll(p1,10,"c1", "cont1");
     countries[2].setAll(p1,15,"c2", "cont1");
-    countries[3].setAll(p2,10,"c3", "cont1");
+    countries[3].setAll(p1,10,"c3", "cont1");
     countries[4].setAll(p2,20,"c4", "cont2");
     
     countries[0].addConnection(countries[1]);//determined during map creation
@@ -57,11 +60,17 @@ std::cout << "There are two continents(cont1, cont2). c0-c3 reside in cont1 and 
     countries[2].addConnection(countries[4]);
     countries[3].addConnection(countries[4]);
     
-  
+    Reinforcement rein(p1,countries,5,continents,2);
+    rein.calculateReinforcement();
+    rein.ReinforcementPhase();
+    
+    
     Fortification fort(p1,countries,5);//fortification phase. Only requires these 4 lines
     fort.setMovingFrom();
     fort.setMovingTo();
     fort.moveArmy();
+    
+    
     
     
    
