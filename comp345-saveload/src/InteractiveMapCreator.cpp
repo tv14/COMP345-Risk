@@ -239,15 +239,23 @@ int main() {
      else if (choice == "load")
      {
     	 string mapname;
+    	 bool exit = false;
     	 do
     	 {
              cout << "Enter your map file name (no need to write .map, type exit to go back) : " ;
              getline(cin,mapname);
              if(mapname == "exit")
+             {
+            	 exit = true;
             	 break;
+             }
         	 demo = new MapManager(mapname);
     	 }
     	 while( demo->loadMap() == 0 );
+    	 if(exit == true)
+    	 {
+    		 continue;
+    	 }
      }
 
      cout << "The map file was loaded properly, would you like to Edit this map or Save it and start the game? (type edit/save) : " ;
@@ -261,7 +269,14 @@ int main() {
 	    	 cout << demo->validateMap();
 	    	 cout << endl << "Saving map" << endl ;
 	    	 demo->saveMap();
-	    	 startGame = true;
+		     if(choice == "save" && demo->isValid())
+		     {
+		    	 startGame = true;
+		     }
+		     else if(choice == "save" && !demo->isValid())
+		     {
+		    	 cout << "The loaded map file is not playable, Try loading a valid map. " << endl;
+		     }
 
 	     }
 	     else if (choice == "edit")
@@ -301,9 +316,13 @@ int main() {
 	    	 allowed[0] = "start";
 	    	 allowed[1] = "load" ;
 		     logValues(&choice , 2, allowed);
-		     if(choice == "start")
+		     if(choice == "start" && demo->isValid())
 		     {
 		    	 startGame = true;
+		     }
+		     else if(choice == "start" && !demo->isValid())
+		     {
+		    	 cout << "The loaded map file is not playable, Try loading a valid map. " << endl;
 		     }
 
 

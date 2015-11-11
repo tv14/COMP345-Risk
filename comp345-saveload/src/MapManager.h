@@ -49,6 +49,7 @@ public:
 	string validateContinents();
 	string validateTerritories();
 	string validateMap();
+	bool isValid();
 
 
 

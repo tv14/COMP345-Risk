@@ -479,3 +479,13 @@ using namespace std;
 				"Territory errors : \n" +
 				validateTerritories();
 	}
+	bool MapManager::isValid(){
+		string str = validateSettings() + validateContinents() + validateTerritories();
+		if ( str  == "")
+		{
+			return true;
+		}
+		{
+			return false;
+		}
+	}
