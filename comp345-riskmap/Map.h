@@ -27,6 +27,9 @@ public:
 
 	void Map::editCountry(Country& coun);
 	void Map::editContinent(Continent& cont);
+
+	int Map::getNumCountriesOwned(string player);
+	int Map::getNumReinforcements(string player);
 private:
 	vector<Country> countries;
 	vector<Continent> continents;

@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Country.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -16,23 +17,25 @@ public:
 	Continent::Continent(const Continent &c);
 	Continent::~Continent();
 	string Continent::getContinentName();
-	vector< string > Continent::getCountries();
+	vector< Country > Continent::getCountries();
 	int Continent::getNumCountries();
-	string Continent::getOwner();
+	Player Continent::getOwner();
 	int Continent::getArmyBonus();
 
 	void Continent::setContinentName(string name);
-	void Continent::setCountries(vector< string > list);
-	void Continent::setOwner(string o);
+	void Continent::setCountries(vector< Country > list);
+	void Continent::setOwner(Player o);
 	void Continent::setArmyBonus(int b);
 
-	void Continent::addCountry(string c);
+	void Continent::addCountry(Country c);
+
+	bool Continent::isPlayerOwned();
 
 private:
 
 	string continentName;
-	vector< string > countries;
-	string owner;
+	vector< Country > countries;
+	Player* owner;
 	int armyBonus;
 
 };

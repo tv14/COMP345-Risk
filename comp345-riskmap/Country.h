@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Continent.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -23,18 +24,22 @@ public:
 	void Country::addArmies(int add);
 	void Country::removeArmies(int remove);
 	int Country::getNumConns();
-	string Country::getOwner();
-	void Country::setOwner(string o);
+	Player* Country::getOwner();
+	void Country::setOwner(Player* o);
 	string Country::getContinent();
 	void Country::setContinent(string cont);
 	bool Country::isAdjacent(string& c);
 	void Country::addConnection(Country &conn);
+    void setAll(Player &o, int armycount, string name, string continent);
+    vector<Country> getConnectionsByCountry();
+    void setConnectionsByCountry(vector<Country> conns);
 
 private:
 	string name;
 	vector<string> connections;
+    vector<Country> connectionsByCountry;
 	string continent;
-	string owner;
+	Player* owner;
 	int armyCount;
 };
 

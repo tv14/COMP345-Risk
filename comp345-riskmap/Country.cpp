@@ -87,15 +87,15 @@ int Country::getNumConns()
 }
 
 //Return the name of the player who owns this country
-string Country::getOwner()
+Player* Country::getOwner()
 {
 	return owner;
 }
 
 //Set the owner of this country
-void Country::setOwner(string o)
+void Country::setOwner(Player* o)
 {
-	owner = o;
+	this->owner = o;
 }
 
 //Return the continent this country belongs to
@@ -124,7 +124,23 @@ bool Country::isAdjacent(string& c)
 void Country::addConnection(Country &conn)
 {
 	connections.push_back(conn.getName());
+    connectionsByCountry.push_back(conn);
 	if (!conn.isAdjacent(name)) {
 		conn.addConnection(*this);
 	}
+}
+
+void Country::setAll(Player &o, int armycount, string name, string continent) {
+    this->owner=&o;
+    armyCount=armycount;
+    this->name=name;
+    this->continent=continent;
+}
+
+vector<Country> Country::getConnectionsByCountry() {
+    return this->connectionsByCountry;
+}
+
+void Country::setConnectionsByCountry(vector<Country> conns) {
+    this->connectionsByCountry = conns;
 }

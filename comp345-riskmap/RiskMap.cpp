@@ -73,7 +73,7 @@ void makeNewCoun(string counName, string contName) {
 	//Add country to continent object it belongs to
 	for (Continent& cont : map.getContinents()) {
 		if (cont.getContinentName() == contName) {
-			cont.addCountry(newCoun.getName());
+			cont.addCountry(newCoun);
 		}
 	}
 	map.addCountry(newCoun);
@@ -152,8 +152,8 @@ int main()
 			for (Continent& c : map.getContinents()) {
 				cout << "Name: " << c.getContinentName() << " # countries: " << c.getNumCountries() << endl;
 				cout << c.getContinentName() << " contains: ";
-				for (string s : c.getCountries()) {
-					cout << s << endl;
+				for (Country s : c.getCountries()) {
+					cout << s.getName() << endl;
 				}
 			}
 			break;

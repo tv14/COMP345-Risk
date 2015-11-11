@@ -74,5 +74,32 @@ void Map::editContinent(Continent& cont) {
 	Notify();
 }
 
+//Returns the number of countries controlled by a player
+int Map::getNumCountriesOwned(string player) {
+	int numOwned = 0;
 
+	for (Country c : countries) {
+		if (c.getOwner() == player)
+			numOwned++;
+	}
 
+	return numOwned;
+}
+
+//Returns the number of reinforcements a player will receive based on the number of countries
+//they control divided by 3 (minimum 3), plus the bonus from any continents they control
+int Map::getNumReinforcements(string player) {
+	int reinforcements = 3;
+
+	if (getNumCountriesOwned(player) / 3 <= 3)
+		return reinforcements;
+	else {
+		reinforcements = getNumCountriesOwned(player) / 3;
+		for (Continent c : continents) {
+			if (c.getOwner() == player)
+				reinforcements += c.getArmyBonus();
+		}
+	}
+
+	return reinforcements;
+}
