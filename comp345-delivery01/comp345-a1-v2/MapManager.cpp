@@ -34,6 +34,38 @@ using namespace std;
 		return map_territories;
 	}
 
+	vector<Continent> MapManager::getContinents()
+	{
+		if (continents.size() == 0)
+			populateContinentVector();
+		return continents;
+	}
+
+	vector<Country> MapManager::getCountries()
+	{
+		if (countries.size() == 0)
+			populateCountryVector();
+		return countries;
+	}
+
+	Map MapManager::getMap() {
+		return map;
+	}
+
+	void MapManager::setContinents(vector<Continent> c)
+	{
+		continents = c;
+	}
+
+	void MapManager::setCountries(vector<Country> c)
+	{
+		countries = c;
+	}
+
+	void MapManager::setMap(Map m) {
+		map = m;
+	}
+
 	void  MapManager::setMapSettings(string** map_settings){
 		this->map_settings = map_settings;
 	}
@@ -357,6 +389,7 @@ using namespace std;
 			adjacentCount++;
 		}
 
+		numAdjacents = adjacentCount; //sets global variable so other methods can iterate through adjacent countries
 		adjacentsStr = map_territories[index][4];
 		string* adjacents = new string[adjacentCount+1];
 		adjacents[0] = to_string(adjacentCount);
@@ -488,4 +521,32 @@ using namespace std;
 		{
 			return false;
 		}
+	}
+
+	void MapManager::populateCountryVector() {
+		vector<string> conns;
+		string* adjacents;
+		Country newCountry;
+
+		for (int i = 0; i < map_territories_count; i++) {
+			newCountry = Country(map_territories[i][0], map_territories[i][3]);
+			adjacents = getAdjacents(i);
+			for (int j = 0; j < numAdjacents; j++) {
+				conns.push_back(adjacents[i]);
+			}
+			newCountry.setConnections(conns);
+			countries.push_back(newCountry);
+		}
+		map.setCountries(countries);
+	}
+
+	void MapManager::populateContinentVector() {
+		Continent newContinent;
+
+		for (int i = 0; i < map_continents_count; i++) {
+			newContinent = Continent(map_continents[i][0]);
+			newContinent.setCaptureCount(atoi(map_continents[i][1].c_str()));
+			continents.push_back(newContinent);
+		}
+		map.setContinents(continents);
 	}

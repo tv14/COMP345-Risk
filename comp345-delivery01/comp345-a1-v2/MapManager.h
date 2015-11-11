@@ -10,6 +10,10 @@
 #ifndef MAPMANAGER_H_
 #define MAPMANAGER_H_
 #include <String>
+#include <vector>
+#include "Country.h"
+#include "Continent.h"
+#include "Map.h"
 
 using namespace std;
 
@@ -39,6 +43,14 @@ public:
 	string** getMapContinents();
 	string** getMapTerritories();
 
+	vector<Continent> getContinents();
+	vector<Country> getCountries();
+	Map getMap();
+
+	void setContinents(vector<Continent> c);
+	void setCountries(vector<Country> c);
+	void setMap(Map m);
+
 	int getMapContinentCount();
 	int getMapTerritoryCount();
 
@@ -51,8 +63,6 @@ public:
 	string validateMap();
 	bool isValid();
 
-
-
 private: // class elements.
 	string map_file_name;
 	string** map_settings;
@@ -60,5 +70,13 @@ private: // class elements.
 	string** map_territories;
 	int map_continents_count;
 	int map_territories_count;
+
+	vector<Country> countries;
+	vector<Continent> continents;
+	Map map;
+	int numAdjacents;
+
+	void populateCountryVector();
+	void populateContinentVector();
 };
 #endif /* MYCLASS_H_ */

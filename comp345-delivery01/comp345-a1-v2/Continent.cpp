@@ -48,15 +48,19 @@ int Continent::getNumCountries()
 }
 
 //Returns the name of the player controlling this continent
-Player Continent::getOwner()
+Player* Continent::getOwner()
 {
-	return *owner;
+	return owner;
 }
 
 //Returns the number of armies a player receives per turn for controlling this continent
 int Continent::getArmyBonus()
 {
 	return armyBonus;
+}
+
+int Continent::getCaptureCount() {
+	return captureCount;
 }
 
 //Sets the name of the continent
@@ -72,15 +76,19 @@ void Continent::setCountries(vector< Country > list)
 }
 
 //Set the name of the player controlling this continent
-void Continent::setOwner(Player o)
+void Continent::setOwner(Player* o)
 {
-	this->owner = &o;
+	this->owner = o;
 }
 
 //Set the bonus number of armies the controlling player receives per turn
 void Continent::setArmyBonus(int b)
 {
 	armyBonus = b;
+}
+
+void Continent::setCaptureCount(int cc) {
+	captureCount = cc;
 }
 
 //Adds a country to this continent

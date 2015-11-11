@@ -11,24 +11,24 @@ using namespace std;
 
 class Continent {
 public:
+	Continent();
+	Continent(string name);
+	Continent(const Continent &c);
+	~Continent();
+	string getContinentName();
+	vector< Country > getCountries();
+	int getNumCountries();
+	Player* getOwner();
+	int getArmyBonus();
+	int getCaptureCount();
 
-	Continent::Continent();
-	Continent::Continent(string name);
-	Continent::Continent(const Continent &c);
-	Continent::~Continent();
-	string Continent::getContinentName();
-	vector< Country > Continent::getCountries();
-	int Continent::getNumCountries();
-	Player Continent::getOwner();
-	int Continent::getArmyBonus();
+	void setContinentName(string name);
+	void setCountries(vector< Country > list);
+	void setOwner(Player* o);
+	void setArmyBonus(int b);
+	void setCaptureCount(int cc);
 
-	void Continent::setContinentName(string name);
-	void Continent::setCountries(vector< Country > list);
-	void Continent::setOwner(Player o);
-	void Continent::setArmyBonus(int b);
-
-	void Continent::addCountry(Country c);
-
+	void addCountry(Country c);
 	bool Continent::isPlayerOwned();
 
 private:
@@ -37,7 +37,7 @@ private:
 	vector< Country > countries;
 	Player* owner;
 	int armyBonus;
-
+	int captureCount;
 };
 
 #endif
