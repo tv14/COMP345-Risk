@@ -18,6 +18,8 @@ and is asked if they wish to send any extras to their countries. param p is a re
 whose turn it is. */
 void driver::reinforce(player& p) {
 	// p.givearmies(); // grant armies at start of turn, implemented separately
+    // NOTE: user input prompt is currently redundant, since there are already
+    // text prompts in the SelectAndBattle class, to be included later.
 
 	cout << "--Reinforcement Phase--" << endl;
 	cout << "Select country to reinforce (leave blank to skip): ";
