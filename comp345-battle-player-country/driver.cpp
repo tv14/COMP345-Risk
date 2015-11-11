@@ -440,7 +440,7 @@ void driver::run() {
 	// stage 1: startup phase
 	// =====================================
 
-	/*	
+		
 	// select number of players
 	string input = "";
 	
@@ -473,7 +473,7 @@ void driver::run() {
 	for (vector<Player>::iterator it = playerlist.begin(); it != playerlist.end(); ++it) {
 		cout << it->getPlayerName() << endl;
 	}
-	*/
+	
 	
 	// create/save/load Map and set up the MapManager for this match
 	mapmanager =  MapManager();
