@@ -35,6 +35,10 @@ public:
     void setAllin(bool allin);
     void singleBattle();
     void allIn();
+    int getAttackerWon();
+    int getDefenderWon();
+    void setAttackerWon(int n);
+    void setDefenderWon(int n);
     
     friend std::ostream& operator<< (std::ostream &out, Battle &battle);
 private:
@@ -43,6 +47,8 @@ private:
     int Adie1, Adie2, Adie3=0, Ddie1, Ddie2=0;
     bool allin=false;
     int numberofattackdice;
+    int attackerwon;
+    int defenderwon;
     
 
 };
@@ -94,6 +100,18 @@ inline void Battle::setAllin(bool allin) {
 }
 inline void Battle::setNumberOfAttackDice(int attackdice) {
    this->numberofattackdice=attackdice;
+}
+inline int Battle::getAttackerWon(){
+    return this->attackerwon;
+}
+inline int Battle::getDefenderWon(){
+    return this->defenderwon;
+}
+inline void Battle::setAttackerWon(int n){
+    this->attackerwon=n;
+}
+inline void Battle::setDefenderWon(int n){
+    this->defenderwon=n;
 }
 #endif	/* BATTLE_H */
 

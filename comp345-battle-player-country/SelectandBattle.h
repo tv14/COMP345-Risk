@@ -10,23 +10,25 @@
 
 #include "Battle.h"
 #include "Country.h"
+#include <vector>
 
 class SelectandBattle {
 public:
-    SelectandBattle(Player &p1,Country countries[],const int NUMBER_OF_COUNTRIES);
+    SelectandBattle(Player &p1,vector<Country> &listofcountries);
     void selectAttackingCountry();
     void selectDefendingCountry();
     bool noEnemy();
     Country* getAttackingCountry();
     Country* getDefendingCountry();
     void doBattle();
+    void AttackPhase();
     
 private:
     Player* currentplayer;
-    Country* listofcountries[100];
-    int NUMBER_OF_COUNTRIES;
+    vector<Country> &listofcountries;
     Country* attackingcountry;
     Country* defendingcountry;
+    bool draw;
     
 };
 inline Country* SelectandBattle::getAttackingCountry() {

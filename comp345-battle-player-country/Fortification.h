@@ -9,11 +9,12 @@
 #define	FORTIFICATION_H
 #include "Country.h"
 #include "Player.h"
+#include <vector>
 
 class Fortification {
 public:
     Fortification();
-    Fortification(Player &p1,Country c[], int NUMBER_OF_COUNTRIES);
+    Fortification(Player &p1,vector<Country> &listofcountries);
     bool hasAPath(Country &c);
     Country* getMovingFrom();
     Country* getMovingTo();
@@ -23,7 +24,7 @@ public:
     void moveArmy();
 private:
     Player* currentplayer;
-    Country* listofcountries[100];
+    vector<Country> &listofcountries;
     int NUMBER_OF_COUNTRIES;
     Country* movingfrom;
     Country* movingto;

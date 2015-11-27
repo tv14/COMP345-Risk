@@ -9,6 +9,9 @@
 #define	SUBJECT_H
 #include "Observer.h"
 #include <list>
+#include "Player.h"
+#include "Country.h"
+#include <vector>
 
 using namespace std;
 
@@ -23,6 +26,7 @@ public:
     virtual void Notify();
     Subject();
     ~Subject();
+        
 private:
     list<Observer*> *_observers;
 };

@@ -1,32 +1,14 @@
 #include "PlayerSubject.h"
 #include <iostream>
 
-/*
- * displays error if the default constructor is initialized
- */
-PlayerSubject::PlayerSubject(){
-std::cout <<"ERROR: PlayerSubject should not be called as default" <<std::endl;
-}
 
 /*
  * Constructor with parameters, requires a single player, an array of countries+continents, and their lengths
  */
-PlayerSubject::PlayerSubject(Player &p, Country listofcountries[], const int NUMBER_OF_COUNTRIES, Continent listofcontinents[], const int NUMBER_OF_CONTINENTS) {
+PlayerSubject::PlayerSubject(Player &p, vector<Country> &listofcountries, vector<Continent> &listofcontinents) : listofcountries(listofcountries), listofcontinents(listofcontinents) {
     chosenplayer=&p;
-    for (int i=0;i<NUMBER_OF_COUNTRIES;i++)
-    {
-        this->listofcountries[i]=&listofcountries[i];
-    }
-    this->NUMBER_OF_COUNTRIES=NUMBER_OF_COUNTRIES;
     currentreinforcements=p.getCurrentReinforcements();
     battleswon=p.getBattlesWon();
-    
-    for (int i=0;i<NUMBER_OF_CONTINENTS;i++)
-    {
-        this->listofcontinents[i]=&listofcontinents[i];
-    }
-    this->NUMBER_OF_CONTINENTS=NUMBER_OF_CONTINENTS;
-    
 }
 
 /*
@@ -41,23 +23,23 @@ PlayerSubject::~PlayerSubject()
  */
 std::string PlayerSubject::getContinentsOwned() {
     std::string output=chosenplayer->getPlayerName() + " owns the following continents : \n";
-     for (int i=0;i<NUMBER_OF_CONTINENTS;i++)
+     for (int indexofcontinents=0;indexofcontinents<listofcontinents.size();indexofcontinents++)
      {
          int check=0;
-         for (int j=0;j<listofcontinents[i]->getNumCountries();j++)
+         for (int indexofcountriesinacontinent=0;indexofcountriesinacontinent<listofcontinents[indexofcontinents].getNumCountries();indexofcountriesinacontinent++)
          {
-             std::string countryincontinent=listofcontinents[i]->getCountries()[j];
-             for (int k=0;k<NUMBER_OF_COUNTRIES;k++)
+             std::string countryincontinent=listofcontinents[indexofcontinents].getCountries()[indexofcountriesinacontinent];
+             for (int indexofcountries=0;indexofcountries<listofcountries.size();indexofcountries++)
              {
-                 if (this->listofcountries[k]->getName()==countryincontinent && this->listofcountries[k]->getOwner()==chosenplayer)
+                 if (this->listofcountries[indexofcountries].getName()==countryincontinent && this->listofcountries[indexofcountries].getOwner()==chosenplayer)
                  {
                      check++;
                  }
              }
          }
-         if (check==listofcontinents[i]->getNumCountries())
+         if (check==listofcontinents[indexofcontinents].getNumCountries())
          {
-             output+=listofcontinents[i]->getContinentName() + "\n";
+             output+=listofcontinents[indexofcontinents].getContinentName() + "\n";
          }
      }
     return output;
@@ -68,11 +50,11 @@ std::string PlayerSubject::getContinentsOwned() {
  */
 std::string PlayerSubject::getCountriesOwned() {
     std::string output=chosenplayer->getPlayerName() + " owns the following countries : \n";
-    for (int i=0;i<NUMBER_OF_COUNTRIES;i++)
+    for (int indexofcountries=0;indexofcountries<listofcountries.size();indexofcountries++)
     {
-        if (listofcountries[i]->getOwner()->getPlayerName()==chosenplayer->getPlayerName())
+        if (listofcountries[indexofcountries].getOwner()->getPlayerName()==chosenplayer->getPlayerName())
         {
-            output +=listofcountries[i]->getName() + "\n";
+            output +=listofcountries[indexofcountries].getName() + "\n";
         }
     }
     return output;
@@ -90,11 +72,11 @@ void PlayerSubject::setCurrentReinforcements(int r){
 
 int PlayerSubject::getTotalArmies() {
     int totalarmies=0;
-    for (int i=0;i<NUMBER_OF_COUNTRIES;i++)
+    for (int indexofcountries=0;indexofcountries<listofcountries.size();indexofcountries++)
     {
-        if (listofcountries[i]->getOwner()->getPlayerName()==chosenplayer->getPlayerName())
+        if (listofcountries[indexofcountries].getOwner()->getPlayerName()==chosenplayer->getPlayerName())
         {
-            totalarmies+=listofcountries[i]->getArmyCount();
+            totalarmies+=listofcountries[indexofcountries].getArmyCount();
         }
     }
     return totalarmies;

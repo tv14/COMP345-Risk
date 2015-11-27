@@ -3,13 +3,9 @@
 using namespace std;
 
 
-SelectandBattle::SelectandBattle(Player &p1, Country countries[], const int NUMBER_OF_COUNTRIES) {
-    for (int i=0;i<NUMBER_OF_COUNTRIES;i++)
-    {
-        this->listofcountries[i]=&countries[i];
-    }
+SelectandBattle::SelectandBattle(Player &p1, vector<Country>&listofcountries) : listofcountries(listofcountries) {
     this->currentplayer=&p1;
-    this->NUMBER_OF_COUNTRIES=NUMBER_OF_COUNTRIES;
+    draw=false;
 }
 
 /*
@@ -24,21 +20,21 @@ void SelectandBattle::selectAttackingCountry() {
         std::cout <<"Please choose country to attack with:\t";//user inputs a country to attack with
         std::cin >> chosenatkcountry;
         
-        for (int i=0;i<this->NUMBER_OF_COUNTRIES;i++)//checks for all countries
+        for (int indexofcountries=0;indexofcountries<listofcountries.size();indexofcountries++)//checks for all countries
         {
-            if (listofcountries[i]->getName()==chosenatkcountry)//program checks if user inputted a proper country
+            if (listofcountries[indexofcountries].getName()==chosenatkcountry)//program checks if user inputted a proper country
             {
-                if (listofcountries[i]->getOwner()->getPlayerName()==this->currentplayer->getPlayerName())//checks to see if user inputted a country he owns
+                if (listofcountries[indexofcountries].getOwner()->getPlayerName()==this->currentplayer->getPlayerName())//checks to see if user inputted a country he owns
                 {
-                    this->attackingcountry=this->listofcountries[i];
+                    this->attackingcountry=&this->listofcountries[indexofcountries];
                     
                     if (this->SelectandBattle::noEnemy())//returns a statement if there is no adjacent enemy country to attack.
                     {
                         std::cout <<"There is no adjacent enemy country to attack. Please choose another country." <<std::endl;
                     }
                     else
-                    {
-                         std::cout<< "You are attacking with: \t" << listofcountries[i]->getName() <<std::endl;
+                    {   //displays success statement for an appropriate country
+                         std::cout<< "You are attacking with: \t" << listofcountries[indexofcountries].getName() <<std::endl;
                          check=false;
                     }
                 }
@@ -54,11 +50,11 @@ void SelectandBattle::selectAttackingCountry() {
  */
 bool SelectandBattle::noEnemy() {
    bool noenemy=true;
-   for (int i=0;i<this->NUMBER_OF_COUNTRIES;i++)
+   for (int indexofcountries=0;indexofcountries<listofcountries.size();indexofcountries++)//checks for all adjacent countries
    {
-       if (attackingcountry->isAdjacent(listofcountries[i]->getName()))
-       {
-           if (attackingcountry->getOwner()->getPlayerName()!=listofcountries[i]->getOwner()->getPlayerName())
+       if (attackingcountry->isAdjacent(listofcountries[indexofcountries].getName()))
+       {    //looks for an appropriate defending country, if it is found, the program returns false
+           if (attackingcountry->getOwner()->getPlayerName()!=listofcountries[indexofcountries].getOwner()->getPlayerName())
            {
                noenemy=false;
                break;
@@ -76,16 +72,16 @@ void SelectandBattle::selectDefendingCountry() {
     bool check=true;
     while (check) {
         std::cout << "Please choose an adjacent enemy country to attack:\t";
-        std::cin >> chosendefcountry;
-        for (int i=0;i<this->NUMBER_OF_COUNTRIES;i++)
+        std::cin >> chosendefcountry;//prompts user for a country
+        for (int indexofcountries=0;indexofcountries<listofcountries.size();indexofcountries++)//checks all existing countries
         {
-            if (listofcountries[i]->getName()==chosendefcountry)//program checks if the user inputted a proper country
+            if (listofcountries[indexofcountries].getName()==chosendefcountry)//program checks if the user inputted a proper country
             {
-                
-                if (this->attackingcountry->isAdjacent(listofcountries[i]->getName()) && attackingcountry->getOwner()->getPlayerName()!=listofcountries[i]->getOwner()->getPlayerName())//checks to see if the inputted country is an adjacent enemy country
+                //checks if the inputted country is a valid defending country
+                if (this->attackingcountry->isAdjacent(listofcountries[indexofcountries].getName()) && attackingcountry->getOwner()->getPlayerName()!=listofcountries[indexofcountries].getOwner()->getPlayerName())//checks to see if the inputted country is an adjacent enemy country
                 {
-                    this->defendingcountry=this->listofcountries[i];
-                    std::cout<< "You are attacking:\t" << listofcountries[i]->getName() << std::endl;
+                    this->defendingcountry=&this->listofcountries[indexofcountries];//displays success
+                    std::cout<< "You are attacking:\t" << listofcountries[indexofcountries].getName() << std::endl;
                     check=false;
                 }
             }
@@ -107,24 +103,24 @@ void SelectandBattle::doBattle() {
         std::string userinput;
         std::cin >> userinput;
         
-        if (userinput=="b")
+        if (userinput=="b")//does a single battle
         {
             thebattle.setAllin(false);
             thebattle.singleBattle();
-            if (thebattle.getAttackerArmy()<2 || thebattle.getDefenderArmy()<1)
+            if (thebattle.getAttackerArmy()<2 || thebattle.getDefenderArmy()<1)//if there are not enough units to do battle, program quits
             {
                 check=false;
                 
             }
         }
-        if (userinput=="a")
+        if (userinput=="a")//allins
         {
             thebattle.setAllin(true);
             thebattle.allIn();
             check=false;
            
         }
-        if (userinput=="s")
+        if (userinput=="s")//displays status of the attackers/defenders if asked for
         {
             std::cout << thebattle <<std::endl;
         }
@@ -138,13 +134,19 @@ void SelectandBattle::doBattle() {
     this->attackingcountry->setArmyCount(thebattle.getAttackerArmy()); //the countries are updated after the battle has ended
     this->defendingcountry->setArmyCount(thebattle.getDefenderArmy());
     
-    std::cout << thebattle <<std::endl;
+    std::cout << thebattle <<std::endl;//displays status after the battle phase is finished
+    
+    this->currentplayer->setBattlesWon(this->currentplayer->getBattlesWon()+thebattle.getAttackerWon());//updates the two players with their respective amount of battles won/fought
+    this->currentplayer->setBattlesFought(this->currentplayer->getBattlesWon()+thebattle.getAttackerWon()+thebattle.getDefenderWon());
+    this->defendingcountry->getOwner()->setBattlesWon(this->defendingcountry->getOwner()->getBattlesWon()+thebattle.getDefenderWon());
+    this->defendingcountry->getOwner()->setBattlesFought(this->defendingcountry->getOwner()->getBattlesWon()+thebattle.getAttackerWon()+thebattle.getDefenderWon());
+    
     
     if (this->defendingcountry->getArmyCount()==0) //if the defenders have been annihilated, the program will ask the user to move a certain number of units into the conquered country
     {
         check=true;
         while (check) 
-        {
+        {   //prompts input for the amount of armies to move into the newly conquered country, must move at least 1 and must have at least 1 army stay behind
             std::cout << "The Defending army has been defeated! Please enter the number of armies you wish to move into the country ( " << thebattle.getNumberOfAttackDice() << " - " 
             << thebattle.getAttackerArmy()-1<< "): \t";
             int movingarmy;
@@ -153,10 +155,17 @@ void SelectandBattle::doBattle() {
             
             if (movingarmy>=thebattle.getNumberOfAttackDice() && movingarmy<thebattle.getAttackerArmy()) //checks to see that the user moves equal to or more than his last attacking number of dice
             {                                                                                              // but leaves at least 1 army behind in his attacking country.
+                
+                //moves the desired amount of armies from the attacking country to the conquered country
                 this->attackingcountry->setArmyCount(this->attackingcountry->getArmyCount()-movingarmy);
                 this->defendingcountry->setOwner(this->attackingcountry->getOwner());
                 this->defendingcountry->setArmyCount(movingarmy);
-                this->currentplayer->addBattlesWon();
+                
+                if (draw==false)//draws a card if this is the first time the player successfully conquered a country
+                {
+                 this->currentplayer->drawACard();   
+                 draw==true;
+                }
                 check=false;
             }
         }
@@ -166,4 +175,34 @@ void SelectandBattle::doBattle() {
         std:;cout<< "The Attackers no longer have enough units."<<std::endl;
     }
     
+}
+
+void SelectandBattle::AttackPhase(){
+    bool continueattacking=false;
+    do 
+    {    
+     this->selectAttackingCountry();
+     this->selectDefendingCountry();
+     this->doBattle();
+     
+    std::string userinput;
+    bool check=true; //ensures user input a proper response
+     while (check)
+     {
+        std::cout<<"Do you wish to continue attacking? y/n :\t ";
+        std::cin >>userinput;
+        if (userinput=="y")
+        {
+            continueattacking=true;
+            check=false;
+        }
+        if (userinput=="n")
+        {
+            continueattacking=false;
+            check=false;
+        }
+     }
+     
+    }
+    while (continueattacking);
 }

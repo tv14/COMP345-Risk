@@ -23,6 +23,8 @@ Battle::Battle(int aarmy, int darmy) {
     else {
         this->attackerarmy=aarmy;
         this->defenderarmy=darmy;
+        attackerwon=0;
+        defenderwon=0;
     }
 }
 /*
@@ -166,17 +168,21 @@ void Battle::getResults() {
     if (this->Battle::getDdie2()!=0 && this->Battle::getAdie2()!=0) {
         if (this->Battle::attackerWins(this->Battle::getAdie2(), this->Battle::getDdie2())) {
             dcasualties++;
+            attackerwon++;
         }
         else {
             acasualties++;
+            defenderwon++;
         }       
     }
      
        if (this->Battle::attackerWins(this->Battle::getAdie1(), this->Battle::getDdie1())) {
             dcasualties++;
+            attackerwon++;
         }
         else {
             acasualties++;
+            defenderwon++;
         } 
     
     this->Battle::setAttackerArmy(this->Battle::getAttackerArmy()-acasualties);

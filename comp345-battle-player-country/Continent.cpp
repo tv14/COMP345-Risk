@@ -22,6 +22,8 @@ Continent::Continent(const Continent &c)
 {
 	setContinentName(c.continentName);
 	setCountries(c.countries);
+        this->armyBonus=c.armyBonus;
+        this->owner=c.owner;
 }
 
 //Destructor
