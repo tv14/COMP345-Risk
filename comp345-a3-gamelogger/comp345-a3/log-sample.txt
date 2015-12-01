@@ -1,0 +1,30 @@
+===player1's turn===
+
+--Reinforcement Phase--
+Reinforcing Canada.
+Sending 2 armies.
+Ending reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Attacking USA with Canada.
+Attacking USA with Ireland.
+Ending attack phase.
+
+===player1's turn===
+
+--Reinforcement Phase--
+Reinforcing Ireland.
+Sending 3 armies.
+Ending reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
