@@ -26,8 +26,7 @@ void phaselogger::update(std::string str, std::string playername, std::string ph
 	//std::cout << "(update called. calling innerupdate...)" << std::endl;
 	bool ok = false;
 	if (this->phasename == phasename ||
-		phasename == "turnindicator" ||
-		phasename == "winner") { // if the update is relevant to the phase being tracked (always track turn indicator/winner announcement), then...
+		phasename == "required") { // if the update is relevant to the phase being tracked (always track turn indicator/defeated/winner announcement), then...
 		ok = true;
 	}
 	//std::cout << "(phaseOK is: " << ok << ")" << std::endl;

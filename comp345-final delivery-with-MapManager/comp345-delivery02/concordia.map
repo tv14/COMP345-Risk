@@ -1,0 +1,22 @@
+[Map]
+image=Concordia.bmp
+wrap=no
+scroll=none
+author=Mouad
+warn=yes
+
+[Continents]
+Encs=2
+General= 3
+Business=3
+
+
+[Territories]
+MCDZ,95,142,General,EV,LB,FG
+HALL,169,218,Encs,LEGYM,LB,JMSB
+LB,184,111,General,MCDZ,EV,HALL
+LEGYM,260,131,General,HALL,JMSB,SUBWAY,EV
+EV,353,64,Encs,LB,MCDZ,SUBWAY,LEGYM
+FG,349,221,Business,MCDZ,JMSB
+JMSB,38,277,Business,HALL,LEGYM,SUBWAY,FG
+SUBWAY,39,13,Business,EV,JMSB,LEGYM

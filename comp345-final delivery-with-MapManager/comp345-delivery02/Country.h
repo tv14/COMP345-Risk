@@ -22,7 +22,7 @@ public:
 	void  addArmies(int add);
 	void  removeArmies(int remove);
 	int  getNumConns();
-	Player*  getOwner();
+	Player* getOwner();
 	void  setOwner(Player* o);
 	string  getContinent();
 	void  setContinent(string cont);

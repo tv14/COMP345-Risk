@@ -43,8 +43,7 @@ public:
     void setNumberOfCards(int n);
     friend  bool operator==(Player &p1, Player &p2);
     friend bool operator !=(Player &p1, Player &p2);
-    
-    
+
 private:
     std::string name;
     int currentreinforcements;

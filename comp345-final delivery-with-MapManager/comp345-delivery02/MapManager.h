@@ -17,12 +17,11 @@
 
 using namespace std;
 
-class MapManager {
+class MapManager { // hi
 public:
 	MapManager();
 	MapManager(string map_file_name); // Class constructor that takes a filename
 	virtual ~MapManager();
-
 
 	vector<string> loadMap();
 	void saveMap();

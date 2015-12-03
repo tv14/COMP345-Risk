@@ -32,7 +32,7 @@ void driver::reinforce(Player& p) {
 
 	cout << "--Reinforcement Phase--" << endl;
 	phaselog << "--Reinforcement Phase--" << endl;
-	cout << "Select country to reinforce (leave blank to skip): ";
+	cout << "REINFORCE? (enter anything to continue, blank to skip): ";
 	string input = "";
 	getline(cin, input);
 
@@ -61,7 +61,7 @@ void driver::attack(Player& p) {
 
 	cout << "--Attack Phase--" << endl;
 	phaselog << "--Attack Phase--" << endl;
-	cout << "Enter anything to initiate an attack (leave blank to skip): ";
+	cout << "ATTACK? (enter anything to continue, blank to skip): ";
 	string target = "";
 	getline(cin, target);
 
@@ -91,7 +91,7 @@ void driver::fortify(Player& p) {
 
 	cout << "--Fortification Phase--" << endl;
 	phaselog << "--Fortification Phase--" << endl;
-	cout << "Do you want to fortify a country (leave blank to skip, input anything to continue): ";
+	cout << "FORTIFY? (enter anything to continue, blank to skip): ";
 
 	string input = "";
 	getline(cin, input);
@@ -124,19 +124,57 @@ void driver::fortify(Player& p) {
 /* The function run() contains the game loop: it is to be called once in the program's
 main method, after which it will run until the game is over. */
 void driver::run() {
-	cout << "Welcome to the Game Logger test program.\n" <<
-	"========================================" << endl;
+	cout << "==================================================" << endl;
+	cout << "\tWelcome to RISK: COMP 345 Edition." << endl;
+	cout <<	"==================================================\n" << endl;
 
 	// =====================================
 	// stage 1: startup phase
 	// =====================================
+	cout << "=============================" << endl;
+	cout << "\tSTARTUP PHASE" << endl;
+	cout << "=============================\n" << endl;
+
+	/* dynamic player creation: uncomment for final demo
+	// select number of players
+	string input = "";
+	vector<Player> tempplayerlist;
+
+	while (true) {
+		cout << "Please choose the number of players for this game (minimum 2): ";
+		getline(cin, input);
+
+		stringstream stream(input);
+
+		if (stream >> numberofplayers) {
+			if (stream.eof() && numberofplayers >= 2)
+				break; // good number of players
+		}
+		cout << "\nInvalid input." << endl;
+	}
+
+	cout << "\nUnderstood. This match will have " << numberofplayers << " players.\n" << endl;
+
+	// fill the (temp)playerlist with user-chosen names
+	for (int i = 1; i <= numberofplayers; ++i) {
+		string name = "";
+		cout << "Choose player " << i << "\'s name: ";
+		getline(cin, name);
+		Player temp = Player(name);
+		tempplayerlist.push_back(temp);
+	}
+	*/
 
 	// for the purpose of demonstration, two players are pre-initialized in playerlist.
 	Player firstplayer("player1"), secondplayer("player2");
 	playerlist.push_back(firstplayer);
 	playerlist.push_back(secondplayer);
 
-	cout << "Game will have two players, player1 and player2." << endl;
+	cout << "Players in this match:" << endl;
+	for (Player &p : playerlist) {
+		cout << p.getPlayerName() << endl;
+	}
+	cout << endl;
 
 	/**
 	 * HOW TO SET UP GAME LOGGER:
@@ -163,70 +201,36 @@ void driver::run() {
 
 	// map loaded here
 
-	MapManager* manager = new MapManager("concordia");
+	// testmap.map is a simple map with two adjacent countries, c1 and c2. c1 will go to player1 and c2 to player2, so use that to test victory conditions.
+	MapManager* manager = new MapManager("testmap");
 	manager->loadMap();
-	if ( manager->isValid())
-	{
+	if (manager->isValid()) {
 		cout << "Map file is valid!" << endl;
 	}
 
+	// fill the driver's country and continents list, based on the map loaded above.
 	continents = manager->getContinents();
 	countries = manager->getCountries();
 
-	//	Continent cont1("cont1"), cont2("cont2");
-	//	cont1.setArmyBonus(3);
-	//	cont2.setArmyBonus(2);
-	//	continents.push_back(cont1);
-	//	continents.push_back(cont2);
-
-	for (Continent& continent : continents)
-	{
+	for (Continent& continent : continents) {
 		continent.setArmyBonus(2);
 	}
 
-//
-//
-//	Country c0,c1,c2,c3,c4;
-//	countries.push_back(c0);
-//	countries.push_back(c2);
-//	countries.push_back(c3);
-//	countries.push_back(c4);
-//	countries.push_back(c1);
-//
-//	continents[0].addCountry("c0");
-//	continents[0].addCountry("c1");
-//	continents[0].addCountry("c2");
-//	continents[0].addCountry("c3");
-//	continents[0].addCountry("c4");
-//
-//	countries[0].setAll(playerlist[0], 5, "c0", "cont1");//name and continent determined during map creation, owner and army size determined during pregame setup.
-//	countries[1].setAll(playerlist[0], 10, "c1", "cont1");
-//	countries[2].setAll(playerlist[0], 15, "c2", "cont1");
-//	countries[3].setAll(playerlist[1], 10, "c3", "cont1");
-//	countries[4].setAll(playerlist[1], 20, "c4", "cont2");
 	int i = 0;
 	for (Country& country : countries)
 	{
 		string name = country.getName();
 		string continent = country.getContinent();
 
-		if(i % 2 == 0)
-		{
-			country.setAll(playerlist[0], 10,  name , continent);
-		}
-		else
-		{
-			country.setAll(playerlist[1], 10, name ,continent);
-		}
+		int currentindex = i % playerlist.size();
+		country.setAll(playerlist[currentindex], 10,  name , continent);
 		i++;
 	}
 
-	for(Country& country : countries)
-	{
-		cout << "Player " << country.getOwner()->getPlayerName() << " owns " << country.getName() << endl;
+	cout << "\nCountry ownership:" << endl;
+	for(Country& country : countries) {
+		cout << country.getOwner()->getPlayerName() << " owns " << country.getName() << "." << endl;
 	}
-
-
 
 //
 //	countries[0].addConnection(countries[1]);//determined during map creation
@@ -279,7 +283,7 @@ void driver::run() {
 
 	printobservers();
 
-	cout << "\nGame is ready.\n========================================" << endl;
+	cout << "\nGame is ready.\n" << endl;
 
 	// =====================================
 	// stage 2: main phase
@@ -288,12 +292,44 @@ void driver::run() {
 	// For each player, go through reinforce, attack and fortify stages. Advance the iterator at the end of each turn.
 	// note: in the actual game, there would likely be a certain number of turns that must pass before players are permitted to attack others.
 
+	cout << "==========================" << endl;
+	cout << "\tGAME START" << endl;
+	cout << "==========================\n" << endl;
+
 	vector<Player>::iterator it = playerlist.begin(); // iterator is placed at beginning of playerlist
 	while (playerlist.size() > 1) {
-		cout << "===" << it->getPlayerName() << "\'s turn===\n" << endl;
 		stringstream currentturn;
+
+		cout << countries[1].getOwner()->getPlayerName() << endl;
+
+		// before doing anything, check if this player should still be in the game:
+		// if no countries return the current player as the owner, they are removed from the game
+		// and we move on to the next player's turn, or declare the winner if there is only one player left.
+		bool lost = true;
+		for (Country &country : countries) {
+			if ((country.getOwner()->getPlayerName() == it->getPlayerName())) {
+				lost = false;
+				break;
+			}
+			// otherwise, it means we must continue checking the other countries to find at least one country owned by the
+			// player before we can declare them defeated.
+		}
+
+		// by now, lost = false if player owns at least one country, or = true if they have no more countries.
+		if (lost) {
+			cout << it->getPlayerName() << " has no more countries: they are removed from the game." << endl;
+			currentturn << it->getPlayerName() << " has no more countries: they are removed from the game." << endl;
+			notify(currentturn.str(), "required", "required");
+			it = playerlist.erase(it); // erase current player, capture the new iterator position into original iterator.
+			if (it == playerlist.end()) it = playerlist.begin();
+			break;
+		}
+
+		// everything checks out: player still has at least one country and may begin their turn.
+		cout << "===" << it->getPlayerName() << "\'s turn===\n" << endl;
+		
 		currentturn << "===" << it->getPlayerName() << "\'s turn===" << endl;
-		notify(currentturn.str(), it->getPlayerName(), "turnindicator");
+		notify(currentturn.str(), it->getPlayerName(), "required");
 
 		// run through all phases
 		reinforce(*it);
@@ -310,7 +346,7 @@ void driver::run() {
 	cout << "\nCongratulations, " << playerlist[0].getPlayerName() << " wins the game!" <<endl;
 	stringstream winner;
 	winner << "\nCongratulations, " << playerlist[0].getPlayerName() << " wins the game!" << endl;
-	notify(winner.str(), playerlist[0].getPlayerName(), "endgame");
+	notify(winner.str(), "required", "required");
 }
 
 // for debug

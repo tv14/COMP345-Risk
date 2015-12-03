@@ -37,8 +37,8 @@ private:
     vector<Continent> &listofcontinents;
     Country * chosencountry;
 	int cardcounter;
-	string stringoutput="";
-     
+	
+	stringstream returnoutput;
 };
 
 inline int Reinforcement::getReinforcements(){

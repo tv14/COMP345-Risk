@@ -25,7 +25,8 @@ void playerlogger::Update() {
 void playerlogger::update(std::string str, std::string playername, std::string phasename) {
 	//std::cout << "(update called. calling innerupdate...)" << std::endl;
 	bool ok = false;
-	if (this->playername == playername) { // if the update is relevant to the player being tracked, then...
+	if (this->playername == playername ||
+		playername == "required") { // if the update is relevant to the player being tracked (always track player defeat notification), then...
 		ok = true;
 	}
 	//std::cout << "(playerOK is: " << ok << ")" << std::endl;

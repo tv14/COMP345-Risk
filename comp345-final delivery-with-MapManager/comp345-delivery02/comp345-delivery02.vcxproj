@@ -18,6 +18,8 @@
     <ClCompile Include="Fortification.cpp" />
     <ClCompile Include="gamelogger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="observer.cpp" />
     <ClCompile Include="phaselogger.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -35,6 +37,8 @@
     <ClInclude Include="gamelogger.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="loggerdecorator.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapManager.h" />
     <ClInclude Include="observer.h" />
     <ClInclude Include="phaselogger.h" />
     <ClInclude Include="Player.h" />

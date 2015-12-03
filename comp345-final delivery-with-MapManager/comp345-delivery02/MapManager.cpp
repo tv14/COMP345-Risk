@@ -26,14 +26,11 @@ string tolowercase(string str){
 MapManager::MapManager(string map_file_name)
 {
 	this->map_file_name = map_file_name;
-
 }
 
 MapManager::MapManager() {
 	// TODO Auto-generated constructor stub
 	map_file_name = "unsaved_map.map";
-
-
 }
 
 
@@ -97,10 +94,10 @@ void MapManager::addTerritory(string name , string x , string y , string contine
 		territory[4] = adjacent;
 
 		this->map_territories.push_back(territory);
-
    }
 
 vector<string> MapManager::loadMap(){
+	cout << "Loading map..." << endl;
 	  fstream inout;
 	  string currentLine;
 	  int lineCounter = 0;
@@ -112,81 +109,80 @@ vector<string> MapManager::loadMap(){
 	  }
 	  else
 	  {
-		  cout << "File doesn't Exist." << endl;
+		  cout << "File \"" << map_file_name << "\" doesn't exist." << endl;
 		  return myMap;
-
 	  }
 
 	  int section = 0;
-	  for(int i=0; !inout.eof(); i++){
+	  for (int i = 0; !inout.eof(); i++){
 
-		  getline(inout,currentLine);
-		  currentLine.erase(currentLine.find_last_not_of(" \n\r\t")+1);
+		  getline(inout, currentLine);
+		  currentLine.erase(currentLine.find_last_not_of(" \n\r\t") + 1);
 
 		  myMap.push_back(currentLine);
-		  string* setting ;
-		  	  	 setting = new string[2];
-		  string* continent ;
-		  	  	 continent = new string[2];
+		  string* setting;
+		  setting = new string[2];
+		  string* continent;
+		  continent = new string[2];
 		  string* territory;
-		  	  	 territory = new string[5];
+		  territory = new string[5];
 
 		  if (currentLine.length() > 0)
 		  {
 
-			if(currentLine.compare( 0, 12 ,"[Map]") == 0 )
-			{
-				 section = 1;
-				 continue;
-			}
-			 if(currentLine.compare( 0, 12 ,"[Continents]") == 0 )
-			 {
-				 section = 2;
-				 continue;
-			 }
-			 if(currentLine.compare( 0, 13 ,"[Territories]") == 0 )
-			 {
-				 section = 3;
-				 continue;
+			  if (currentLine.compare(0, 12, "[Map]") == 0)
+			  {
+				  section = 1;
+				  continue;
+			  }
+			  if (currentLine.compare(0, 12, "[Continents]") == 0)
+			  {
+				  section = 2;
+				  continue;
+			  }
+			  if (currentLine.compare(0, 13, "[Territories]") == 0)
+			  {
+				  section = 3;
+				  continue;
+			  }
 
-			 }
+			  if (section == 1)
+			  {
+				  setting[0] = currentLine.substr(0, currentLine.find("="));
+				  setting[1] = currentLine.substr(currentLine.find("=") + 1);
+				  map_settings.push_back(setting);
+			  }
 
-		      if(section==1 )
-		      {
-		    	  setting[0] = currentLine.substr(0,currentLine.find("="));
-		    	  setting[1] = currentLine.substr(currentLine.find("=")+1);
-		          map_settings.push_back(setting);
+			  if (section == 2)
+			  {
+				  continent[0] = currentLine.substr(0, currentLine.find("="));
+				  continent[1] = currentLine.substr(currentLine.find("=") + 1);
+				  map_continents.push_back(continent);
+			  }
 
-		      }
+			  if (section == 3)
+			  {
+				  territory[0] = currentLine.substr(0, currentLine.find(","));
+				  currentLine = currentLine.substr(currentLine.find(",") + 1);
 
-		      if(section==2 )
-		      {
-		    	  continent[0] = currentLine.substr(0,currentLine.find("="));
-				  continent[1] = currentLine.substr(currentLine.find("=")+1);
-		    	  map_continents.push_back(continent);
-		      }
+				  territory[1] = currentLine.substr(0, currentLine.find(","));
+				  currentLine = currentLine.substr(currentLine.find(",") + 1);
 
-		      if(section==3)
-		      {
-		    	  territory[0] = currentLine.substr(0,currentLine.find(","));
-		    	  currentLine = currentLine.substr(currentLine.find(",")+1);
+				  territory[2] = currentLine.substr(0, currentLine.find(","));
+				  currentLine = currentLine.substr(currentLine.find(",") + 1);
 
-		    	  territory[1] = currentLine.substr(0,currentLine.find(","));
-		    	  currentLine = currentLine.substr(currentLine.find(",")+1);
+				  territory[3] = currentLine.substr(0, currentLine.find(","));
+				  currentLine = currentLine.substr(currentLine.find(",") + 1);
 
-		    	  territory[2] = currentLine.substr(0,currentLine.find(","));
-		    	  currentLine = currentLine.substr(currentLine.find(",")+1);
+				  territory[4] = currentLine;
+				  map_territories.push_back(territory);
+			  }
 
-		    	  territory[3] = currentLine.substr(0,currentLine.find(","));
-		    	  currentLine = currentLine.substr(currentLine.find(",")+1);
-
-		    	  territory[4] = currentLine;
-		    	  map_territories.push_back( territory);
-		      }
-		    	  lineCounter++;
+			  lineCounter++;
 		  }
-		}
-		return myMap;
+	  }
+
+	  return myMap;
 }
 
 void MapManager::saveMap(){
@@ -213,7 +209,8 @@ void MapManager::saveMap(string filename){
 	inout << endl << "[Territories]" << endl;
 	for (int i = 0 ; i < getMapTerritories().size() ; i++)
 	{
-		inout << getMapTerritories().at(i)[0] << "," << getMapTerritories().at(i)[1] << "," << getMapTerritories().at(i)[2] << "," << getMapTerritories().at(i)[3] << "," << getMapTerritories().at(i)[4] << endl;
+		inout << getMapTerritories().at(i)[0] << "," << getMapTerritories().at(i)[1] << "," << getMapTerritories().at(i)[2]
+			<< "," << getMapTerritories().at(i)[3] << "," << getMapTerritories().at(i)[4] << endl;
 	}
 
 	inout.close();
@@ -425,7 +422,7 @@ string MapManager::validateMap(){
 	  return str;
 }
 
-bool MapManager::isValid(){
+bool MapManager::isValid() {
 	string str = validateSettings() + validateContinents() + validateTerritories();
 	if ( str  == "")
 	{

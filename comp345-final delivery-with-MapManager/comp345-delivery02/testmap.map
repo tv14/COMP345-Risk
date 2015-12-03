@@ -1,0 +1,14 @@
+[Map]
+image=testmap.bmp
+wrap=no
+scroll=none
+author=whoknows
+warn=yes
+
+[Continents]
+cont=2
+
+
+[Territories]
+c1,95,142,cont,c2
+c2,349,221,cont,c1
