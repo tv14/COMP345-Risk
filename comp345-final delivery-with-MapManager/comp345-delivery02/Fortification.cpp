@@ -71,7 +71,7 @@ void Fortification::setMovingTo(){
     bool check=true;
     while (check) {
         std::cout << "Please choose an country that you own to move to:\t";
-        std::cin >> chosenmovingto;
+		getline(cin, chosenmovingto);
         for (int indexofcountries=0;indexofcountries<listofcountries.size();indexofcountries++)
         {
         	Country movintoC = listofcountries[indexofcountries];

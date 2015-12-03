@@ -300,7 +300,7 @@ void driver::run() {
 	while (playerlist.size() > 1) {
 		stringstream currentturn;
 
-		cout << countries[1].getOwner()->getPlayerName() << endl;
+		cout << "(c2's owner: " << countries[1].getOwner()->getPlayerName() << ")" << endl;
 
 		// before doing anything, check if this player should still be in the game:
 		// if no countries return the current player as the owner, they are removed from the game

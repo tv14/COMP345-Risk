@@ -94,7 +94,7 @@ void Reinforcement::calculateCardsReinforcement(){
         while (check)
         {
             cout<<"Do you wish to spend cards to reinforce (+" <<this->getCardCounter()*5<<" reinforcements) y/n:\t";
-            cin>>userinput;
+			getline(cin, userinput);
             
             bool secondcheck=true;
             if (userinput=="y")
@@ -102,7 +102,7 @@ void Reinforcement::calculateCardsReinforcement(){
                 while(secondcheck)
                 {
                     cout<<"Press 1, 2 or 3 to spend 3 soldier/horse/cannon cards respectively. Press 4 to spend one of each card. Press \"b\" to go back :\t";
-                    cin >>userinput;
+					getline(cin, userinput);
                     
                     if (userinput=="1")
                     {

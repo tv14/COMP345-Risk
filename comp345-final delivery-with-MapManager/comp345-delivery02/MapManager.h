@@ -17,7 +17,7 @@
 
 using namespace std;
 
-class MapManager { // hi
+class MapManager {
 public:
 	MapManager();
 	MapManager(string map_file_name); // Class constructor that takes a filename
@@ -61,10 +61,6 @@ public:
 	void setContinents(vector<Continent> c);
 	void setCountries(vector<Country> c);
 	void setMap(Map m);
-
-
-
-
 
 private: // class elements.
 	string map_file_name;

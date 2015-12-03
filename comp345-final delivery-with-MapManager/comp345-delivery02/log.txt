@@ -15,3 +15,18 @@ Skipping fortification phase.
 
 ===player2's turn===
 
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+--Fortification Phase--
+Skipping fortification phase.
+
+
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+

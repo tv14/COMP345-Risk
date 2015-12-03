@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <ctime>
 #include <iostream>
+#include <string>
+#include <sstream>
 
 /*
  * constructor with armies initialized. There is  no default constructor since all battle must have at least 2 attackers and 1 defender
@@ -44,10 +46,13 @@ Battle::Battle(int aarmy, int darmy) {
      std::cout<< "Please enter the number of Attackers (1-" <<limit << "):\t";
      bool check=true;
      int numberofattackers;
+	 std::string input;
      while (check)
      {
-         std::cin >> numberofattackers;
-         if (numberofattackers>=1 && numberofattackers<=limit)
+		 std::getline(std::cin, input);
+		 std::stringstream stream(input);
+
+         if (stream >> numberofattackers && numberofattackers>=1 && numberofattackers<=limit)
          {
              check=false;
          }
@@ -63,11 +68,13 @@ Battle::Battle(int aarmy, int darmy) {
       std::cout<< "Please enter the number of Defenders (1-" <<limit << "):\t";
      bool check=true;
      int numberofdefenders;
+	 std::string input;
      while (check)
      {
-         std::cin >> numberofdefenders;
-         if (numberofdefenders>=1 && numberofdefenders<=limit)
-         {
+		 std::getline(std::cin, input);
+		 std::stringstream stream(input);
+
+         if (stream >> numberofdefenders && numberofdefenders>=1 && numberofdefenders<=limit) {
              check=false;
          }
      }
