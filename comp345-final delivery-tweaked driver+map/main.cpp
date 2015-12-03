@@ -24,7 +24,7 @@ int main() {
 	vector<Country>countries = manager->getCountries();
 	
 	// create the driver, assign its game logger.
-	driver *gamedriver = new driver();
+	driver *gamedriver = new driver(continents, countries);
 
 	// run the game loop and let it run its course.
 	gamedriver->run();
