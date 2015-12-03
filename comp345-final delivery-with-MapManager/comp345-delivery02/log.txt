@@ -4,28 +4,7 @@
 skipping reinforcement phase.
 
 --Attack Phase--
-You are attacking with: 	c1
-You are attacking:	c3
-The Defending army has been defeated! Moved 3 armies into the country.
-Ending attack phase.
-
---Fortification Phase--
-1 armies have been moved from c3 to c1.
-Ending fortification phase.
-
-===player2's turn===
-
---Reinforcement Phase--
-You have reinforced c4 with 5 armies
-You have placed all the reinforcement armies. 
-Terminating Reinforcement Phase
-
---Attack Phase--
 Skipping attack phase.
-
---Fortification Phase--
-Skipping fortification phase.
-
 
 ===player1's turn===
 
@@ -35,21 +14,13 @@ skipping reinforcement phase.
 --Attack Phase--
 Skipping attack phase.
 
---Fortification Phase--
-Skipping fortification phase.
-
-
-===player2's turn===
+===player1's turn===
 
 --Reinforcement Phase--
 skipping reinforcement phase.
 
 --Attack Phase--
 Skipping attack phase.
-
---Fortification Phase--
-Skipping fortification phase.
-
 
 ===player1's turn===
 
@@ -59,21 +30,13 @@ skipping reinforcement phase.
 --Attack Phase--
 Skipping attack phase.
 
---Fortification Phase--
-Skipping fortification phase.
-
-
-===player2's turn===
+===player1's turn===
 
 --Reinforcement Phase--
 skipping reinforcement phase.
 
 --Attack Phase--
 Skipping attack phase.
-
---Fortification Phase--
-Skipping fortification phase.
-
 
 ===player1's turn===
 
@@ -83,11 +46,7 @@ skipping reinforcement phase.
 --Attack Phase--
 Skipping attack phase.
 
---Fortification Phase--
-Skipping fortification phase.
-
-
-===player2's turn===
+===player1's turn===
 
 --Reinforcement Phase--
 skipping reinforcement phase.
@@ -95,12 +54,83 @@ skipping reinforcement phase.
 --Attack Phase--
 Skipping attack phase.
 
---Fortification Phase--
-Skipping fortification phase.
+===player1's turn===
 
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
 
 ===player1's turn===
 
 --Reinforcement Phase--
 skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
 
