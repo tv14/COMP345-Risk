@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>Battle.h</itemPath>
+      <itemPath>Continent.h</itemPath>
+      <itemPath>Country.h</itemPath>
+      <itemPath>Fortification.h</itemPath>
+      <itemPath>Game.h</itemPath>
+      <itemPath>GameBuilder.h</itemPath>
+      <itemPath>GameDirector.h</itemPath>
+      <itemPath>Map.h</itemPath>
+      <itemPath>MapAdapter.h</itemPath>
+      <itemPath>MapManager.h</itemPath>
+      <itemPath>Player.h</itemPath>
+      <itemPath>PlayerSubject.h</itemPath>
+      <itemPath>PlayerView.h</itemPath>
+      <itemPath>Reinforcement.h</itemPath>
+      <itemPath>RiskGameBuilder.h</itemPath>
+      <itemPath>SelectandBattle.h</itemPath>
+      <itemPath>driver.h</itemPath>
+      <itemPath>gamelogger.h</itemPath>
+      <itemPath>logger.h</itemPath>
+      <itemPath>loggerdecorator.h</itemPath>
+      <itemPath>observer.h</itemPath>
+      <itemPath>phaselogger.h</itemPath>
+      <itemPath>player-z.h</itemPath>
+      <itemPath>playerlogger.h</itemPath>
+      <itemPath>stdafx.h</itemPath>
+      <itemPath>subject.h</itemPath>
+      <itemPath>targetver.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="final delivery"
+                     displayName="final delivery"
+                     projectFiles="true">
+        <logicalFolder name="dist" displayName="dist" projectFiles="true">
+          <logicalFolder name="Debug" displayName="Debug" projectFiles="true">
+            <logicalFolder name="MinGW-Windows"
+                           displayName="MinGW-Windows"
+                           projectFiles="true">
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+        <itemPath>Makefile</itemPath>
+        <itemPath>comp345-delivery02.vcxproj</itemPath>
+        <itemPath>comp345-delivery02.vcxproj.filters</itemPath>
+        <itemPath>log-sample.txt</itemPath>
+        <itemPath>log.txt</itemPath>
+      </logicalFolder>
+      <itemPath>Battle.cpp</itemPath>
+      <itemPath>Continent.cpp</itemPath>
+      <itemPath>Country.cpp</itemPath>
+      <itemPath>Fortification.cpp</itemPath>
+      <itemPath>Game.cpp</itemPath>
+      <itemPath>InteractiveMapCreator.cpp</itemPath>
+      <itemPath>Map.cpp</itemPath>
+      <itemPath>MapAdapter.cpp</itemPath>
+      <itemPath>MapManager.cpp</itemPath>
+      <itemPath>Player.cpp</itemPath>
+      <itemPath>PlayerSubject.cpp</itemPath>
+      <itemPath>PlayerView.cpp</itemPath>
+      <itemPath>Reinforcement.cpp</itemPath>
+      <itemPath>RiskMap.cpp</itemPath>
+      <itemPath>RiskSaveTest.cpp</itemPath>
+      <itemPath>SelectandBattle.cpp</itemPath>
+      <itemPath>Test.cpp</itemPath>
+      <itemPath>driver.cpp</itemPath>
+      <itemPath>gamelogger.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
+      <itemPath>observer.cpp</itemPath>
+      <itemPath>phaselogger.cpp</itemPath>
+      <itemPath>player-z.cpp</itemPath>
+      <itemPath>playerlogger.cpp</itemPath>
+      <itemPath>stdafx.cpp</itemPath>
+      <itemPath>subject.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+        </ccTool>
+      </compileType>
+      <item path="Battle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Battle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Continent.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Continent.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Country.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Country.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Fortification.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Fortification.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Game.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Game.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GameBuilder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GameDirector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InteractiveMapCreator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Makefile" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Map.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Map.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MapAdapter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MapAdapter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MapManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MapManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PlayerSubject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PlayerSubject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PlayerView.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PlayerView.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Reinforcement.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Reinforcement.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RiskGameBuilder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RiskMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RiskSaveTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="SelectandBattle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="SelectandBattle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="comp345-delivery02.vcxproj" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="comp345-delivery02.vcxproj.filters" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="driver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="driver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="gamelogger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="gamelogger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="log-sample.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="log.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="logger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="loggerdecorator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="observer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="observer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="phaselogger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="phaselogger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="player-z.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="player-z.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="playerlogger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="playerlogger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="stdafx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="stdafx.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="subject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="subject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="targetver.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="Battle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Battle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Continent.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Continent.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Country.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Country.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Fortification.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Fortification.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Game.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Game.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GameBuilder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GameDirector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InteractiveMapCreator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Makefile" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Map.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Map.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MapAdapter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MapAdapter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MapManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MapManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PlayerSubject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PlayerSubject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PlayerView.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PlayerView.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Reinforcement.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Reinforcement.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RiskGameBuilder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RiskMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RiskSaveTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="SelectandBattle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="SelectandBattle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="comp345-delivery02.vcxproj" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="comp345-delivery02.vcxproj.filters" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="driver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="driver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="gamelogger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="gamelogger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="log-sample.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="log.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="logger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="loggerdecorator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="observer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="observer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="phaselogger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="phaselogger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="player-z.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="player-z.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="playerlogger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="playerlogger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="stdafx.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="stdafx.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="subject.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="subject.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="targetver.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
