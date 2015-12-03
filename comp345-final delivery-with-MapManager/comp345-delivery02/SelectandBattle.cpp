@@ -3,7 +3,8 @@
 using namespace std;
 
 
-SelectandBattle::SelectandBattle(Player &p1, vector<Country>&listofcountries) : listofcountries(listofcountries) {
+SelectandBattle::SelectandBattle(Player &p1, vector<Country>&listofcountries) {
+	this->listofcountries = &listofcountries; // make sure we're pointing to the actual list of countries
     this->currentplayer=&p1;
     draw=false;
 }
@@ -20,14 +21,14 @@ void SelectandBattle::selectAttackingCountry() {
         std::cout <<"Please choose country to attack with:\t";//user inputs a country to attack with
 		getline(cin, chosenatkcountry);
         
-        for (int indexofcountries=0;indexofcountries<listofcountries.size();indexofcountries++)//checks for all countries
+        for (int indexofcountries=0;indexofcountries<listofcountries->size();indexofcountries++)//checks for all countries
         {
-     	   Country countryC = listofcountries[indexofcountries];
+     	   Country countryC = (*listofcountries)[indexofcountries];
             if (countryC.getName()==chosenatkcountry)//program checks if user inputted a proper country
             {
-                if (countryC.getOwner()->getPlayerName()==this->currentplayer->getPlayerName())//checks to see if user inputted a country he owns
+                if (countryC.getOwner()->getPlayerName()==this->currentplayer->getPlayerName()) //checks to see if user inputted a country he owns
                 {
-                    this->attackingcountry=&this->listofcountries[indexofcountries];
+                    this->attackingcountry = &(*listofcountries)[indexofcountries];
                     
                     if (this->SelectandBattle::noEnemy())//returns a statement if there is no adjacent enemy country to attack.
                     {
@@ -52,9 +53,9 @@ void SelectandBattle::selectAttackingCountry() {
  */
 bool SelectandBattle::noEnemy() {
    bool noenemy=true;
-   for (int indexofcountries=0;indexofcountries<listofcountries.size();indexofcountries++)//checks for all adjacent countries
+   for (int indexofcountries=0; indexofcountries < listofcountries->size(); indexofcountries++) //checks for all adjacent countries
    {
-	   Country countryC = listofcountries[indexofcountries];
+	   Country countryC = (*listofcountries)[indexofcountries];
 	   string countryCSTR = countryC.getName();
        if (attackingcountry->isAdjacent(countryCSTR))
        {    //looks for an appropriate defending country, if it is found, the program returns false
@@ -76,19 +77,19 @@ void SelectandBattle::selectDefendingCountry() {
     bool check=true;
     while (check) {
         std::cout << "Please choose an adjacent enemy country to attack:\t";
-        getline(cin, chosendefcountry);//prompts user for a country
-        for (int indexofcountries=0;indexofcountries<listofcountries.size();indexofcountries++)//checks all existing countries
+        getline(cin, chosendefcountry); //prompts user for a country
+        for (int indexofcountries=0; indexofcountries < listofcountries->size(); indexofcountries++) //checks all existing countries
         {
-     	   Country countryC = listofcountries[indexofcountries];
+     	   Country countryC = (*listofcountries)[indexofcountries];
     	   string countryCSTR = countryC.getName();
 
 
-            if (countryC.getName()==chosendefcountry)//program checks if the user inputted a proper country
+            if (countryC.getName()==chosendefcountry) //program checks if the user inputted a proper country
             {
                 //checks if the inputted country is a valid defending country
-                if (this->attackingcountry->isAdjacent(countryCSTR) && attackingcountry->getOwner()->getPlayerName()!=countryC.getOwner()->getPlayerName())//checks to see if the inputted country is an adjacent enemy country
+                if (this->attackingcountry->isAdjacent(countryCSTR) && attackingcountry->getOwner()->getPlayerName()!=countryC.getOwner()->getPlayerName()) //checks to see if the inputted country is an adjacent enemy country
                 {
-                    this->defendingcountry=&this->listofcountries[indexofcountries];//displays success
+                    this->defendingcountry = &(*listofcountries)[indexofcountries]; //displays success
                     std::cout<< "You are attacking:\t" << countryC.getName() << std::endl;
 					returnoutput << "You are attacking:\t" << countryC.getName() << std::endl;
                     check=false;

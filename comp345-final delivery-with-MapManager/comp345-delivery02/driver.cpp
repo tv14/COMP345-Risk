@@ -111,10 +111,8 @@ void driver::fortify(Player& p) {
 	fort.setMovingFrom();
 	fort.setMovingTo();
 	phaselog << fort.moveArmy();
-		
 
 	cout << "Ending fortification phase.\n" << endl;
-
 	phaselog << "Ending fortification phase." << endl;
 	notify(phaselog.str(), p.getPlayerName(), "fortification");
 
@@ -135,7 +133,11 @@ void driver::run() {
 	cout << "\tSTARTUP PHASE" << endl;
 	cout << "=============================\n" << endl;
 
-	/* dynamic player creation: uncomment for final demo
+	// ===========================================
+	// A. player setup: determine player number and
+	// get player names from user input.
+	// ===========================================
+	/*
 	// select number of players
 	string input = "";
 	vector<Player> tempplayerlist;
@@ -176,31 +178,10 @@ void driver::run() {
 	}
 	cout << endl;
 
-	/**
-	 * HOW TO SET UP GAME LOGGER:
-	 * Once the players are established, you can select which players/phases you want to track.
-	 * For tracking players:
-	 *		Create a playerlogger decorator and pass the player's name, as a string. This is why the playerlist must be
-	 *		esblished before you can choose which players to track. The names must be passed exactly as they are:
-	 *		there is no case-correction applied.
-	 * For tracking phases:
-	 *		Create a phaselogger decorator and pass one of three phases, as strings: "reinforcement", "attack" or "fortification",
-	 *		exactly as they are written, without quotes. The phases each call notify() with these exact arguments, and so the decorator
-	 *		must match them to the letter in order for them to be recorded.
-	 * Chaining decorators:
-	 *		Decorators can be chained. For example, you can track player1 and also track their reinforcement + attack phases. Simply add
-	 *		a playerlogger for "player1", a phaselogger for "reinforcement" and a phaselogger for "attack".
-	 * On modifying the basic logger:
-	 *		The basic logger simply logs everything. However, as soon as you add one decorator, it nullifies the entire logger, meaning
-	 *		it will be set to track no phase and no player until you explicitly add them yourself. In other words, you will have either no
-	 *		decorators, or *at least* two: one for the player, and one for the phase. Example: adding only a playerlogger for player1 and nothing
-	 *		else will result in nothing being logged: you must also provide at least one phase to be logged, as well.
-	 * Have fun logging!!!
-	 */
-	logger *log = new gamelogger(this);
-
-	// map loaded here
-
+	// ===========================================================
+	// B. map setup: load a map, or create one from scratch with the
+	// map creation wizard.
+	// ===========================================================
 	// testmap.map is a simple map with two adjacent countries, c1 and c2. c1 will go to player1 and c2 to player2, so use that to test victory conditions.
 	MapManager* manager = new MapManager("testmap");
 	manager->loadMap();
@@ -230,19 +211,33 @@ void driver::run() {
 	cout << "\nCountry ownership:" << endl;
 	for(Country& country : countries) {
 		cout << country.getOwner()->getPlayerName() << " owns " << country.getName() << "." << endl;
-	}
+	}	
 
-//
-//	countries[0].addConnection(countries[1]);//determined during map creation
-//	countries[0].addConnection(countries[2]);
-//	countries[1].addConnection(countries[2]);
-//	countries[1].addConnection(countries[3]);
-//	countries[2].addConnection(countries[3]);
-//	countries[2].addConnection(countries[4]);
-//	countries[3].addConnection(countries[4]);
-	
-
-	//stringstream logsetupstream;
+	// =============================================
+	// C. set up the game logger, based on user input.
+	// =============================================
+	/**
+	* HOW TO SET UP GAME LOGGER:
+	* Once the players are established, you can select which players/phases you want to track.
+	* For tracking players:
+	*		Create a playerlogger decorator and pass the player's name, as a string. This is why the playerlist must be
+	*		esblished before you can choose which players to track. The names must be passed exactly as they are:
+	*		there is no case-correction applied.
+	* For tracking phases:
+	*		Create a phaselogger decorator and pass one of three phases, as strings: "reinforcement", "attack" or "fortification",
+	*		exactly as they are written, without quotes. The phases each call notify() with these exact arguments, and so the decorator
+	*		must match them to the letter in order for them to be recorded.
+	* Chaining decorators:
+	*		Decorators can be chained. For example, you can track player1 and also track their reinforcement + attack phases. Simply add
+	*		a playerlogger for "player1", a phaselogger for "reinforcement" and a phaselogger for "attack".
+	* On modifying the basic logger:
+	*		The basic logger simply logs everything. However, as soon as you add one decorator, it nullifies the entire logger, meaning
+	*		it will be set to track NO phase and NO player until you explicitly add them yourself. In other words, you will have either no
+	*		decorators, or *at least* two: one for the player, and one for the phase. Example: adding only a playerlogger for player1 and nothing
+	*		else will result in nothing being logged: you must also provide at least one phase to be logged, as well.
+	* Happy logging!!!
+	*/
+	logger *log = new gamelogger(this);
 	string logsetupinput = "";
 	cout << "\nGAME LOGGER SETUP:" << endl;
 	cout << "\n==Player logging==" << endl;
@@ -322,7 +317,7 @@ void driver::run() {
 			notify(currentturn.str(), "required", "required");
 			it = playerlist.erase(it); // erase current player, capture the new iterator position into original iterator.
 			if (it == playerlist.end()) it = playerlist.begin();
-			break;
+			continue; // continue to next player's turn
 		}
 
 		// everything checks out: player still has at least one country and may begin their turn.

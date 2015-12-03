@@ -133,8 +133,5 @@ string Fortification::moveArmy() {
     std::cout<<armycount <<" armies have been moved from " <<movingfrom->getName() << " to " <<movingto->getName()<<std::endl;
 	returnoutput << armycount << " armies have been moved from " << movingfrom->getName() << " to " << movingto->getName() << "." << std::endl;
     
-	return returnoutput.str();
-    
-    
-            
+	return returnoutput.str();        
 }

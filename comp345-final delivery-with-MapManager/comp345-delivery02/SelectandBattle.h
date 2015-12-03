@@ -27,7 +27,7 @@ public:
     
 private:
     Player* currentplayer;
-    vector<Country> listofcountries;
+    vector<Country> *listofcountries;
     Country* attackingcountry;
     Country* defendingcountry;
     bool draw;

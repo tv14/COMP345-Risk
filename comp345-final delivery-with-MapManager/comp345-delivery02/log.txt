@@ -13,20 +13,8 @@ Ending attack phase.
 Skipping fortification phase.
 
 
-===player2's turn===
-
---Reinforcement Phase--
-skipping reinforcement phase.
-
---Attack Phase--
-Skipping attack phase.
-
---Fortification Phase--
-Skipping fortification phase.
+player2 has no more countries: they are removed from the game.
 
 
-===player1's turn===
-
---Reinforcement Phase--
-skipping reinforcement phase.
+Congratulations, player1 wins the game!
 
