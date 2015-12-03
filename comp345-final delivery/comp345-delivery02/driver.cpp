@@ -31,7 +31,7 @@ void driver::reinforce(Player& p) {
 
 	cout << "--Reinforcement Phase--" << endl;
 	phaselog << "--Reinforcement Phase--" << endl;
-	cout << "Select country to reinforce (leave blank to skip): ";
+	cout << "REINFORCE? (input anything to continue, blank to skip): ";
 	string input = "";
 	getline(cin, input);
 
@@ -60,7 +60,7 @@ void driver::attack(Player& p) {
 
 	cout << "--Attack Phase--" << endl;
 	phaselog << "--Attack Phase--" << endl;
-	cout << "Enter anything to initiate an attack (leave blank to skip): ";
+	cout << "ATTACK? (input anything to continue, blank to skip): ";
 	string target = "";
 	getline(cin, target);
 
@@ -90,7 +90,7 @@ void driver::fortify(Player& p) {
 
 	cout << "--Fortification Phase--" << endl;
 	phaselog << "--Fortification Phase--" << endl;
-	cout << "Do you want to fortify a country (leave blank to skip, input anything to continue): ";
+	cout << "FORTIFY? (input anything to continue, blank to skip): ";
 
 	string input = "";
 	getline(cin, input);
@@ -205,7 +205,7 @@ void driver::run() {
 	getline(cin, logsetupinput);
 
 	if (logsetupinput.empty()) {
-		cout << "\nSkipping log setup: using default settings (log all)." << endl;
+		cout << "\n\nSkipping log setup: using default settings (log all)." << endl;
 	}
 
 	else {
@@ -213,14 +213,14 @@ void driver::run() {
 			cout << "Adding player \"" << logsetupinput << "\" to the logger." << endl;
 			log = new playerlogger(log, logsetupinput, this);
 
-			cout << "Add next player (leave empty to continue): ";
+			cout << "Add next player (leave empty to continue to next step): ";
 			getline(cin, logsetupinput);
 
 			if (logsetupinput.empty()) break;
 		}
 
 		cout << "\n==Phase logging==" << endl;
-		cout << "Enter the name of the phase to log (choose from \"reinforcement\", \"attack\" and \"fortification\"): ";
+		cout << "Enter the name of the phase to log\n(choose from \"reinforcement\", \"attack\" and \"fortification\"): ";
 		getline(cin, logsetupinput);
 
 		while (true) {

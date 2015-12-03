@@ -1,15 +1,18 @@
-// Zachary Eugenio, 26518257
-// COMP 345 assignment 3, part 4: Game Logger
+/** 
+ * COMP 345: RISK
+ * 
+ * authors:
+ * 
+ * Zachary Eugenio	26518257
+ */
 
 #include "player.h"
 #include "driver.h"
 
 #include <iostream>
 
-using namespace std;
-
 int main() {
-	cout << "[running program.]\n" << endl;
+	std::cout << "[running program.]\n" << std::endl;
 	
 	// create the driver, assign its game logger.
 	driver *gamedriver = new driver();
@@ -17,7 +20,7 @@ int main() {
 	// run the game loop and let it run its course.
 	gamedriver->run();
 
-	cout << "\n[end of program. Press enter to exit.]";
-	cin.get();
+	std::cout << "\n[end of program. Press enter to exit.]";
+	std::cin.get();
 	return 0;
 }
