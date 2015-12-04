@@ -1,5 +1,0 @@
-﻿  RiskMap.cpp
-  Country.cpp
-  Generating Code...
-Continent.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
-  RiskMap.vcxproj -> H:\Workspace\RiskMap\Debug\RiskMap.exe

@@ -1,0 +1,16 @@
+===a's turn===
+
+a's AI status has been set to: 1.
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+Skipping attack phase.
+
+--Fortification Phase--
+Skipping fortification phase.
+
+
+===b's turn===
+
