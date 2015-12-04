@@ -81,9 +81,6 @@
     <ClCompile Include="WorldControlledDecorator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\comp345-final delivery-tweaked driver+map\MapManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MapAdapter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -159,9 +156,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WorldControlledDecorator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\comp345-final delivery-tweaked driver+map\MapManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MapAdapter.h">

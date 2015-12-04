@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\comp345-final delivery-tweaked driver+map\MapManager.cpp" />
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="BattlesWonDecorator.cpp" />
     <ClCompile Include="Continent.cpp" />
@@ -38,7 +37,6 @@
     <ClCompile Include="WorldControlledDecorator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\comp345-final delivery-tweaked driver+map\MapManager.h" />
     <ClInclude Include="Battle.h" />
     <ClInclude Include="BattlesWonDecorator.h" />
     <ClInclude Include="Continent.h" />

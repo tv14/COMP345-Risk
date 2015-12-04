@@ -183,7 +183,7 @@ vector<string> MapManager::loadMap(){
 	  }
 	  if (this->isValid())
 	  {
-		  cout << "isValid Settingmap Call " << endl;
+		  // cout << "isValid Settingmap Call " << endl;
 		  setupMap();
 	  }
 	  return myMap;

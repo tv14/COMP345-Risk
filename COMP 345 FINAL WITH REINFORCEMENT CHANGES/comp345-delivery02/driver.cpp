@@ -36,9 +36,6 @@ driver::driver() {
 and is asked if they wish to send any extras to their countries. param p is a reference to the player
 whose turn it is. */
 void driver::reinforce(Player& p) {
-	
-	
-
 
 	stringstream phaselog; // add text to this log throughout the phase, then send to game logger at the end
 
@@ -133,9 +130,8 @@ void driver::fortify(Player& p) {
 
 	return;
 }
+
 //////////////////////////////
-
-
 
 void cin_clear() {
 	cin.ignore(10000000000, '\n');
@@ -517,13 +513,11 @@ MapManager* runMapCreator() {
 	} while (startGame == false);
 
 	// GAME STARTS HERE
-	cout << "Starting Game" << endl;
+	// cout << "Starting Game" << endl;
 	return demo;
 }
 
-
-
-/////////////////////
+//////////////////////////////
 
 /* The function run() contains the game loop: it is to be called once in the program's
 main method, after which it will run until the game is over. */
@@ -539,11 +533,13 @@ void driver::run() {
 	cout << "\tSTARTUP PHASE" << endl;
 	cout << "=============================\n" << endl;
 
-	// ===========================================
+	// ============================================
 	// A. player setup: determine player number and
 	// get player names from user input.
-	// ===========================================
+	// ============================================
 	
+	cout << "PLAYER SETUP:\n" << endl;
+
 	// select number of players
 	string input = "";
 	vector<Player> tempplayerlist;
@@ -571,10 +567,8 @@ void driver::run() {
 		Player temp = Player(name);
 		playerlist.push_back(temp);
 	}
-	
 
-	for (int indexofplayers = 0; indexofplayers < playerlist.size(); indexofplayers++)
-	{
+	for (int indexofplayers = 0; indexofplayers < playerlist.size(); indexofplayers++) {
 		playerlist[indexofplayers].drawNumberOfCards(15);
 	}
 
@@ -589,18 +583,19 @@ void driver::run() {
 	}
 	cout << endl;
 
-	// ===========================================================
+	// =============================================================
 	// B. map setup: load a map, or create one from scratch with the
 	// map creation wizard.
-	// ===========================================================
-	// testmap.map is a simple map with two adjacent countries, c1 and c2. c1 will go to player1 and c2 to player2, so use that to test victory conditions.
+	// =============================================================
+	
+	cout << "MAP SETUP:\n" << endl;
+
 	MapManager* manager = runMapCreator();
-	cout << "loading here " << endl;
+	//cout << "loading here " << endl;
 	manager->loadMap();
 	if (manager->isValid()) {
 		cout << "Map file is valid!" << endl;
 	}
-
 
 	// fill the driver's country and continents list, based on the map loaded above.
 	continents = manager->getContinents();
@@ -611,35 +606,24 @@ void driver::run() {
 		continent.setArmyBonus(2);
 	}
 
-
-
 	int i = 0;
-	int currentindex;
-	for (Country& country : countries)
-		for (int indexofcountries = 0; indexofcountries < countries.size();indexofcountries++)
-	{
-		string name = countries[indexofcountries].getName();
-		string continent = countries[indexofcountries].getContinent();
-
-		currentindex = rand() % (playerlist.size());//randomly adds countries to players
-		countries[indexofcountries].setAll(playerlist[currentindex], 10, name, continent);//sets the countries owner, armycount(equal to 10), name and continent
+	int currentplayer;
+	
+	for (Country& country : countries) {
+		currentplayer = rand() % (playerlist.size()); //randomly adds countries to players
+		country.setAll(playerlist[currentplayer], 10, country.getName(), country.getContinent()); //sets the countries owner, armycount (equal to 10), name and continent
 		i++;
 	}
 
-	
-	
-	
 	//display Country ownership
 	cout << "\nCountry ownership:" << endl;
 	for(Country& country : countries) {
 		cout << country.getOwner()->getPlayerName() << " owns " << country.getName() << "." << endl;
 	}	
 
-
-
-	// =============================================
+	// ===============================================
 	// C. set up the game logger, based on user input.
-	// =============================================
+	// ===============================================
 	/**
 	* HOW TO SET UP GAME LOGGER:
 	* Once the players are established, you can select which players/phases you want to track.
@@ -699,53 +683,49 @@ void driver::run() {
 	}
 
 	cout << "\nLog setup complete. Stack of custom decorators:\n" << endl;
-
-
+	printobservers();
 
 	// GAME STATISTICS OBSERVER/DECORATOR HERE
+
+	cout << "\nGAME STATISTICS SETUP:\n" << endl;
+
 	//asks for user input to determine what type of game statistics to display
-	    bool statcheck=true;
+	bool statcheck=true;
 	GameStatSubject *sub;
 	Observer *obs;
-	while(statcheck)
-	{
-	string userinput;
-	std::cout<< "Press 1 for basic statistics, 2 for World %, 3 for Win %, 4 for both World and Win %"<<std::endl;
-	getline(cin, userinput);
+	while (statcheck) {
+		string userinput;
+		std::cout << "Press 1 for basic statistics, 2 for World %, 3 for Win %, 4 for both World and Win %" << std::endl;
+		getline(cin, userinput);
 
-	if (userinput=="1")
-	{
-	sub=new GameStatSubject(playerlist,countries);//creates a basic observer pattern
-	obs=new GameStatObserver(sub);
-	statcheck=false;
+		if (userinput == "1") {
+			sub = new GameStatSubject(playerlist, countries);//creates a basic observer pattern
+			obs = new GameStatObserver(sub);
+			statcheck = false;
+		}
+		else if (userinput == "2")
+		{
+			sub = new GameStatSubject(playerlist, countries);//creates an observer pattern with a single decorator (the world % owned)
+			obs = new GameStatObserver(sub);
+			obs = new WorldControlledDecorator(obs, playerlist, countries, sub);
+			statcheck = false;
+		}
+		else if (userinput == "3")
+		{
+			sub = new GameStatSubject(playerlist, countries);//creates an observer pattern with a single decorator (the win %)
+			obs = new GameStatObserver(sub);
+			obs = new BattlesWonDecorator(obs, playerlist, sub);
+			statcheck = false;
+		}
+		else if (userinput == "4")
+		{
+			sub = new GameStatSubject(playerlist, countries);//creates an observer pattern with both decorators, the world % owned first then the win %
+			obs = new GameStatObserver(sub);
+			obs = new WorldControlledDecorator(obs, playerlist, countries, sub);
+			obs = new BattlesWonDecorator(obs, playerlist, sub);
+			statcheck = false;
+		}
 	}
-	else if (userinput=="2")
-	{
-		sub = new GameStatSubject(playerlist, countries);//creates an observer pattern with a single decorator (the world % owned)
-	obs=new GameStatObserver(sub);
-	obs = new WorldControlledDecorator(obs, playerlist, countries, sub);
-	statcheck=false;
-	}
-	else if (userinput=="3")
-	{
-		sub = new GameStatSubject(playerlist, countries);//creates an observer pattern with a single decorator (the win %)
-	obs=new GameStatObserver(sub);
-	obs = new BattlesWonDecorator(obs, playerlist, sub);
-	statcheck=false;
-	}
-	else if (userinput=="4")
-	{
-		sub = new GameStatSubject(playerlist, countries);//creates an observer pattern with both decorators, the world % owned first then the win %
-	obs=new GameStatObserver(sub);
-	obs = new WorldControlledDecorator(obs, playerlist, countries, sub);
-	obs = new BattlesWonDecorator(obs, playerlist, sub);
-	statcheck=false;
-	}
-	}
-
-	
-
-	printobservers();
 
 	cout << "\nGame is ready.\n" << endl;
 
@@ -763,7 +743,6 @@ void driver::run() {
 	vector<Player>::iterator it = playerlist.begin(); // iterator is placed at beginning of playerlist
 	while (playerlist.size() > 1) {
 		stringstream currentturn;
-
 
 		// before doing anything, check if this player should still be in the game:
 		// if no countries return the current player as the owner, they are removed from the game
@@ -794,6 +773,22 @@ void driver::run() {
 		currentturn << "===" << it->getPlayerName() << "\'s turn===" << endl;
 		notify(currentturn.str(), it->getPlayerName(), "required");
 
+		// check for AI status: allow user to toggle at the beginning of each turn
+		cout << it->getPlayerName() << "'s current AI status: " << it->getAI() << endl;
+		cout << "Toggle AI status? (\'y\' to confirm, anything else to cancel): ";
+		string aiinput;
+		getline(cin, aiinput);
+
+		if (aiinput == "y") {
+			stringstream aichangestatus;
+			it->setAI(!it->getAI()); // swap the AI status: 0 to 1, 1 to 0.
+			cout << it->getPlayerName() << "'s AI status has been set to: " << it->getAI() << "." << endl;
+			aichangestatus << it->getPlayerName() << "'s AI status has been set to: " << it->getAI() << "." << endl;
+			notify(aichangestatus.str(), "required", "required");
+		}
+
+		cout << endl;
+
 		// run through all phases
 		reinforce(*it);
 		attack(*it);
@@ -810,11 +805,6 @@ void driver::run() {
 
 		ps1->Notify();
 		cout << "\n\n\n";
-
-		
-		
-
-
 
 		// after all phases, move to next player, or if end of playerlist has been reached, move back to beginning
 		++it;
