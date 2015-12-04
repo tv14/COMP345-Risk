@@ -1,0 +1,20 @@
+===player1's turn===
+
+--Reinforcement Phase--
+skipping reinforcement phase.
+
+--Attack Phase--
+You are attacking with: 	c1
+You are attacking:	c2
+The Defending army has been defeated! Moved 3 armies into the country.
+Ending attack phase.
+
+--Fortification Phase--
+Skipping fortification phase.
+
+
+player2 has no more countries: they are removed from the game.
+
+
+Congratulations, player1 wins the game!
+
