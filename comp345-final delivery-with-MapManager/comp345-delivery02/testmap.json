@@ -1,0 +1,24 @@
+{"Map" : 
+{[
+"image":"testmap.bmp",
+"wrap":"no",
+"scroll":"none",
+"author":"whoknows",
+"warn":"yes"
+]}
+}
+{"Continents" :
+{[
+"cont1":4,
+"cont2":1
+]}
+}
+{"Territories" : 
+{[
+"c0,99,199,cont1,c1,c2",
+"c1,95,142,cont1,c0,c2,c3",
+"c2,349,221,cont1,c0,c1,c3,c4",
+"c3,15,277,cont1,c1,c2,c4",
+"c4,54,264,cont2,c2,c3"
+]}
+}
