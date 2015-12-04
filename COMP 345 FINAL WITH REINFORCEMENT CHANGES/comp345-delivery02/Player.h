@@ -41,6 +41,7 @@ public:
     void setHorseCards(int n);
     void setCannonCards(int n);
     void setNumberOfCards(int n);
+	string toString();
     friend  bool operator==(Player &p1, Player &p2);
     friend bool operator !=(Player &p1, Player &p2);
 

@@ -5,10 +5,11 @@
 #include <vector>
 #include "Continent.h"
 #include "Country.h"
+#include "subject.h"
 
 using namespace std;
 
-class Map {
+class Map : public Subject {
 public:
 	 Map();
 	 Map(vector<Country>& countries, vector<Continent>& continents);

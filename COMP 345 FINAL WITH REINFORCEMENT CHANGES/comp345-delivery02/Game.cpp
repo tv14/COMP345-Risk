@@ -74,15 +74,6 @@ void Game::save(string fname) {
 	//Save continent data
 	output << "Continents" << endl;
 	for (Continent& c : map.getContinents()) {
-		//output << c.getContinentName() << "," << c.getCaptureCount() << "," << c.getArmyBonus() << ",";
-		//// If continent has an owner, save the name of it
-		//if (c.getOwner() != nullptr)
-		//	output << c.getOwner()->getPlayerName() << ",";
-		//else
-		//	output << ",";
-		//for (Country& coun : c.getCountries()) {
-		//	output << coun.getName() << ",";
-		//}
 		output << c.toString();
 		output << endl;
 	}
@@ -90,14 +81,6 @@ void Game::save(string fname) {
 	// Save country data
 	output << "Countries" << endl;
 	for (Country& c : map.getCountries()) {
-		/*output << c.getName() << "," << c.getArmyCount() << "," << c.getContinent() << ",";
-		if (c.getOwner() != nullptr)
-			output << c.getOwner()->getPlayerName() << ",";
-		else
-			output << ",";
-		for (string& s : c.getConnections()) {
-			output << "," << s;
-		}*/
 		output << c.toString();
 		output << endl;
 	}
@@ -105,7 +88,7 @@ void Game::save(string fname) {
 	// Save player data
 	output << "Players" << endl;
 	for (Player& p : players) {
-		output << p.getPlayerName();
+		output << p.toString();
 		output << endl;
 	}
 

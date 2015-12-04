@@ -74,6 +74,16 @@ void Player::displayCards(){
      std::cout<< "Player " <<this->getPlayerName() << " owns the following cards :\t" << soldiercards << " Soldiers\t" << horsecards << " Horses\t" << cannoncards << " Cannons"<<std::endl;
 }
 
+string Player::toString() {
+	string playerString = "";
+
+	playerString = name + "," + to_string(currentreinforcements) + "," + to_string(battleswon) + ",";
+	playerString += to_string(battlesfought) + "," + to_string(ai) + "," + to_string(soldiercards) + ",";
+	playerString += to_string(horsecards) + "," + to_string(cannoncards);
+
+	return playerString;
+}
+
 /*
  * Equals method that determines two players are the same if they have the same name and not equal if they do not.
  */
