@@ -37,25 +37,21 @@ vector<Continent> Map::getContinents()
 void Map::setCountries(vector<Country>& countries)
 {
 	this->countries = countries;
-	Notify();
 }
 
 void Map::setContinents(vector<Continent>& continents)
 {
 	this->continents = continents;
-	Notify();
 }
 
 void Map::addCountry(Country& c)
 {
 	countries.push_back(c);
-	Notify();
 }
 
 void Map::addContinent(Continent& c)
 {
 	continents.push_back(c);
-	Notify();
 }
 
 //Methods used to overwrite an existing object in the country or continent vectors.
@@ -64,14 +60,12 @@ void Map::editCountry(Country& coun) {
 		if (c.getName() == coun.getName())
 			c = coun;
 	}
-	Notify();
 }
 void Map::editContinent(Continent& cont) {
 	for (Continent& c : continents) {
 		if (c.getContinentName() == cont.getContinentName())
 			c = cont;
 	}
-	Notify();
 }
 
 //Returns the number of countries controlled by a player
