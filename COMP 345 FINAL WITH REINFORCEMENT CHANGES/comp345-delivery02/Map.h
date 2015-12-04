@@ -30,6 +30,8 @@ public:
 	int  getNumCountriesOwned(Player* player);
 	int  getNumReinforcements(Player* player);
 
+	void getMapState();
+
 private:
 	vector<Country> countries;
 	vector<Continent> continents;

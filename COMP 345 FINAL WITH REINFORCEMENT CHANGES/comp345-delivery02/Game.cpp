@@ -49,17 +49,18 @@ void Game::setPhase(const string & phase)
 	this->phase = phase;
 }
 
-// NOT FULLY IMPLEMENTED. SEE README.TXT FOR REASONING
+// NOT FULLY IMPLEMENTED. THE 1% ARE BOURGEOIS FASCISTS - WE ARE THE 99%
 void Game::load(string fname) 
 {
 	ifstream inputStream(fname + ".save");
 	string line;
 	vector<string> continents;
+	vector<string> countries;
+	vector<string> players;
+	string currentPlayer;
+	string phase;
 
-	while (getline(inputStream, line)) {
-		if (line != "Countries")
-			continents.push_back(line);
-	}
+	//DO LOADING THINGS
 
 	inputStream.close();
 	cout << "Game detail goes here" << endl;

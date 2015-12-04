@@ -103,3 +103,7 @@ int Map::getNumReinforcements(Player* player) {
 
 	return reinforcements;
 }
+
+void Map::getMapState() {
+	Notify();
+}

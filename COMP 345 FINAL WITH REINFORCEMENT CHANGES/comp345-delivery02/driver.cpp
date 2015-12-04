@@ -18,6 +18,9 @@
 #include "GameStatObserver.h"
 #include "GameStatSubject.h"
 #include "MapAdapter.h"
+#include "MapView.h"
+#include "GameDirector.h"
+#include "RiskGameBuilder.h"
 
 #include <iostream>
 #include <vector>
@@ -533,6 +536,13 @@ void driver::run() {
 	cout << "\tSTARTUP PHASE" << endl;
 	cout << "=============================\n" << endl;
 
+	// ====================================================
+	// Instantiate Builder pattern to enable saving/loading
+	// ====================================================
+	GameDirector director;
+	GameBuilder* builder = new RiskGameBuilder;
+	director.setGameBuilder(builder);
+
 	// ============================================
 	// A. player setup: determine player number and
 	// get player names from user input.
@@ -620,6 +630,10 @@ void driver::run() {
 	for(Country& country : countries) {
 		cout << country.getOwner()->getPlayerName() << " owns " << country.getName() << "." << endl;
 	}	
+
+	//instantiate Map observer
+	Map map = Map(countries, continents);
+	MapView *mapView = new MapView(&map);
 
 	// ===============================================
 	// C. set up the game logger, based on user input.
@@ -789,13 +803,30 @@ void driver::run() {
 
 		cout << endl;
 
-		// run through all phases
+		string phase = "";
+
+		// run through all phases, keeping track of current phase in a string
+		phase = "reinforce";
 		reinforce(*it);
+		phase = "attack";
 		attack(*it);
+		phase = "fortify";
 		fortify(*it);
+
+		//Automated game saving at the end of a player's turn
+		director.constructGame(map, *it, playerlist, phase);
+
+		Game* riskState = director.getGame();
+		cout << "Saving game..." << endl;
+		riskState->save(it->getPlayerName());
+		cout << "Game saved as " << it->getPlayerName() << ".save" << endl;
+
+		delete riskState;
+		riskState = NULL;
 
 		//game statistics notify
 		sub->Notify();
+		map.getMapState();
 
 		cout << "\n\n\n";
 
@@ -817,6 +848,12 @@ void driver::run() {
 	stringstream winner;
 	winner << "\nCongratulations, " << playerlist[0].getPlayerName() << " wins the game!" << endl;
 	notify(winner.str(), "required", "required");
+
+	//memory management
+	delete mapView;
+	mapView = NULL;
+	delete builder;
+	builder = NULL;
 }
 
 // for debug
