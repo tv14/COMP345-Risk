@@ -10,23 +10,35 @@
 #include "Reinforcement.h"
 #include "SelectandBattle.h"
 #include "MapManager.h"
+#include "PlayerSubject.h"
+#include "PlayerView.h"
+#include "BattlesWonDecorator.h"
+#include "WorldControlledDecorator.h"
+#include "GameStatDecorator.h"
+#include "GameStatObserver.h"
+#include "GameStatSubject.h"
+#include "MapAdapter.h"
 
 #include <iostream>
 #include <vector>
 #include <string>
 #include <sstream>
+#include <ctime>
 
 using namespace std;
 
 // Default constructor
 driver::driver() {
+	cardcounter = 1;
 }
 
 /* Function for Reinforcement phase. Player is given armies at the beginning of each of their turns,
 and is asked if they wish to send any extras to their countries. param p is a reference to the player
 whose turn it is. */
 void driver::reinforce(Player& p) {
-	// p.givearmies(); // grant armies at start of turn, implemented separately
+	
+	
+
 
 	stringstream phaselog; // add text to this log throughout the phase, then send to game logger at the end
 
@@ -121,6 +133,397 @@ void driver::fortify(Player& p) {
 
 	return;
 }
+//////////////////////////////
+
+
+
+void cin_clear() {
+	cin.ignore(10000000000, '\n');
+}
+
+
+void logYN(string* value) {
+	bool valid = false;
+	*value = *value;
+	do {
+		cin >> *value;
+		cin_clear();
+		if (*value == "y" || *value == "yes")
+		{
+			*value = "yes";
+			valid = true;
+
+		}
+
+		else if (*value == "n" || *value == "no")
+		{
+			*value = "no";
+			valid = true;
+		}
+		else {
+
+			cout << "Please answer with Y/N : ";
+		}
+	} while (!valid);
+
+}
+
+void logInt(string* value) {
+	bool valid = false;
+	do {
+		try {
+			cin >> *value;
+			cin_clear();
+
+			stoi(*value);
+			if (stoi(*value) >= 1) {
+				valid = true;
+			}
+			else {
+				cout << "Please enter a positive integer value : ";
+			}
+		}
+		catch (invalid_argument)
+		{
+			cout << "Please enter a positive integer value : ";
+		}
+	} while (!valid);
+
+}
+
+void logValues(string* value, int allowedCount, string* firstAllowed)
+{
+	bool valid = false;
+	//*value = tolower(*value);
+	do {
+		cin >> *value;
+		cin_clear();
+
+		for (int i = 0; i<allowedCount; i++)
+
+		{
+			if (*value == firstAllowed[i])
+			{
+				*value = firstAllowed[i];
+				valid = true;
+			}
+		}
+		if (!valid)
+		{
+			cout << "Please enter one of the options suggested : ";
+		}
+
+	} while (!valid);
+
+}
+
+void addMapSettings(MapManager* manager) {
+	//---------------------map settings section ---------------------------
+	string map_settings[5];
+	string input_limitation[5];
+
+	cout << "First, lets start with your name : ";
+	getline(cin, map_settings[3]);
+
+
+	cout << endl << "Now, what should this map be called ? : ";
+	getline(cin, map_settings[0]);
+
+
+	cout << endl << "Does this map wrap around? (like our planet) Y/N : ";
+	logYN(&map_settings[1]);
+
+	cout << endl << "Does this map allow scrolling? (horizontal, vertical or none) : ";
+	input_limitation[0] = "horizontal";
+	input_limitation[1] = "vertical";
+	input_limitation[2] = "none";
+
+
+	(&map_settings[2], 3, input_limitation);
+
+	cout << endl << "Do you want to allow the map to display warnings? Y/N : ";
+	logYN(&map_settings[4]);
+
+	cout << endl << "We're done with map settings! " << endl << endl;
+
+
+	manager->setMapSettings(map_settings[0], map_settings[1], map_settings[2], map_settings[3], map_settings[4]);
+
+}
+
+void addContinents(MapManager* manager) {
+	//--------------------- continents section ---------------------------
+
+	string count, continentName, continentCaptureCount;
+	int intCount;
+
+
+
+	cout << "Now onto continents, How many continents would you like to add? :  ";
+	logInt(&count);
+
+	intCount = stoi(count);
+
+	for (int i = 0; i < intCount; i++)
+	{
+		cout << "Enter a name for continent " << i + 1 << " :  ";
+		cin >> continentName;
+		cin_clear();
+
+		cout << "Enter continent capture count: ";
+		logInt(&continentCaptureCount);
+
+		manager->addContinent(continentName, continentCaptureCount);
+	}
+
+
+	cout << endl << "We're done with Continents!! " << endl << endl;
+}
+
+void addTerritories(MapManager* manager) {
+	//--------------------- Territory section ---------------------------
+
+	string territory[5];
+	string count = "";
+	int intCount = 0;
+
+
+	cout << "Now onto territories, How many territories would you like to add? :  ";
+	logInt(&count);
+
+	intCount = stoi(count);
+
+	for (int i = 0; i < intCount; i++)
+	{
+		cout << "Enter a name for territory " << i + 1 << " :  ";
+		cin >> territory[0];
+		cin_clear();
+
+		territory[1] = "0";
+		territory[2] = "0";
+
+		cout << "Enter continent of territory " << i + 1 << " :  ";
+		cin >> territory[3];
+		cin_clear();
+
+		cout << "Enter adjacent territories of territory " << i + 1 << " (Separated by a comma ex: territory1, territory2, ...) :  ";
+		getline(cin, territory[4]);
+
+		manager->addTerritory(territory[0], territory[1], territory[2], territory[3], territory[4]);
+	}
+}
+
+void interactiveMapCreation(MapManager* manager)
+{
+
+	cout << "Welcome to RISK's interactive map creation wizard!!" << endl;
+	cout << "Lets get started!! " << endl << endl;
+
+	addMapSettings(manager);
+	addContinents(manager);
+	addTerritories(manager);
+
+}
+
+MapManager* runMapCreator() {
+
+	bool startGame = false;
+	MapManager* demo;
+	MapAdapter* adapter;
+
+	do {
+
+		cout << "Would you like to load a map or create one? (type create/load) : ";
+		string choice;
+		string* allowed;
+		allowed = new string[5];
+		allowed[0] = "create";
+		allowed[1] = "load";
+		logValues(&choice, 2, allowed);
+		demo = new MapManager();
+
+		if (choice == "create") {
+			interactiveMapCreation(demo);
+		}
+		else if (choice == "load")
+		{
+			cout << "Please select your file type : (map/json) : ";
+			string choice;
+			string* allowed;
+			allowed = new string[5];
+			allowed[0] = "map";
+			allowed[1] = "json";
+			logValues(&choice, 2, allowed);
+			if (choice == "map")
+			{
+				string mapname;
+				bool exit = false;
+				do
+				{
+					cout << "Enter your map file name (no need to write .map, type exit to go back) : ";
+					getline(cin, mapname);
+					if (mapname == "exit")
+					{
+						exit = true;
+						break;
+					}
+					demo = new MapManager(mapname);
+				} while (demo->loadMap().size() == 0);
+				if (exit == true)
+				{
+					continue;
+				}
+			}
+			else{
+				string mapname;
+				bool exit = false;
+				do
+				{
+					cout << "Enter your map file name (no need to write .json, type exit to go back) : ";
+					getline(cin, mapname);
+					if (mapname == "exit")
+					{
+						exit = true;
+						break;
+					}
+					demo = new MapManager(mapname);
+					adapter = new MapAdapter(demo);
+					adapter->loadJSONMap();
+
+				} while (adapter->loadJSONMap().size() == 0);
+				if (exit == true)
+				{
+					continue;
+				}
+
+			}
+
+
+		}
+
+		cout << "The map file was loaded properly, would you like to Edit this map or Save it and start the game? (type edit/save) : ";
+		allowed[0] = "edit";
+		allowed[1] = "save";
+
+		logValues(&choice, 2, allowed);
+
+		if (choice == "save") {
+
+
+			cout << "Please select your file type : (map/json) : ";
+			string typechoice;
+			string* typeallowed;
+			typeallowed = new string[5];
+			typeallowed[0] = "map";
+			typeallowed[1] = "json";
+			logValues(&typechoice, 2, typeallowed);
+
+			if (typechoice == "map")
+			{
+				cout << "Verifying map" << endl;
+				cout << demo->validateMap();
+				cout << endl << "Saving map" << endl;
+				demo->saveMap();
+			}
+			else if (typechoice == "json"){
+				cout << "Verifying map" << endl;
+				cout << demo->validateMap();
+				cout << endl << "Saving map" << endl;
+				adapter = new MapAdapter(demo);
+				adapter->saveJSONMap();
+			}
+
+
+
+			if (choice == "save" && demo->isValid())
+			{
+				startGame = true;
+			}
+			else if (choice == "save" && !demo->isValid())
+			{
+				cout << "The loaded map file is not playable, Try loading a valid map. " << endl;
+			}
+
+		}
+		else if (choice == "edit")
+		{
+			do
+			{
+				cout << "What would you like to modify? (Enter : settings,continents,territories or exit to save and quit) : ";
+				allowed[0] = "settings";
+				allowed[1] = "continents";
+				allowed[2] = "territories";
+				allowed[3] = "exit";
+				logValues(&choice, 4, allowed);
+				if (choice == "exit")
+				{
+
+					cout << "Please select your file type : (map/json) : ";
+					string typechoice;
+					string* typeallowed;
+					typeallowed = new string[5];
+					typeallowed[0] = "map";
+					typeallowed[1] = "json";
+					logValues(&typechoice, 2, typeallowed);
+
+					if (typechoice == "map")
+					{
+						cout << "Verifying map" << endl;
+						cout << demo->validateMap();
+						cout << endl << "Saving map" << endl;
+						demo->saveMap();
+						break;
+
+					}
+					else if (typechoice == "json"){
+						cout << "Verifying map" << endl;
+						cout << demo->validateMap();
+						cout << endl << "Saving map" << endl;
+						adapter = new MapAdapter(demo);
+						adapter->saveJSONMap();
+						break;
+
+					}
+				}
+				else if (choice == "settings")
+				{
+					addMapSettings(demo);
+				}
+				else if (choice == "continents")
+				{
+					addContinents(demo);
+				}
+				else if (choice == "territories") {
+					addTerritories(demo);
+				}
+
+			} while (true);
+
+			cout << "The map file was edited properly, would you like to start the game or load a new map?  (type start/load) : ";
+			allowed[0] = "start";
+			allowed[1] = "load";
+			logValues(&choice, 2, allowed);
+			if (choice == "start" && demo->isValid())
+			{
+				startGame = true;
+			}
+			else if (choice == "start" && !demo->isValid())
+			{
+				cout << "The loaded map file is not playable, Try loading a valid map. " << endl;
+			}
+
+
+		}
+	} while (startGame == false);
+
+	// GAME STARTS HERE
+	cout << "Starting Game" << endl;
+	return demo;
+}
+
+
+
+/////////////////////
 
 /* The function run() contains the game loop: it is to be called once in the program's
 main method, after which it will run until the game is over. */
@@ -140,7 +543,7 @@ void driver::run() {
 	// A. player setup: determine player number and
 	// get player names from user input.
 	// ===========================================
-	/*
+	
 	// select number of players
 	string input = "";
 	vector<Player> tempplayerlist;
@@ -166,14 +569,19 @@ void driver::run() {
 		cout << "Choose player " << i << "\'s name: ";
 		getline(cin, name);
 		Player temp = Player(name);
-		tempplayerlist.push_back(temp);
+		playerlist.push_back(temp);
 	}
-	*/
+	
+
+	for (int indexofplayers = 0; indexofplayers < playerlist.size(); indexofplayers++)
+	{
+		playerlist[indexofplayers].drawNumberOfCards(15);
+	}
 
 	// for the purpose of demonstration, two players are pre-initialized in playerlist.
-	Player firstplayer("player1"), secondplayer("player2");
-	playerlist.push_back(firstplayer);
-	playerlist.push_back(secondplayer);
+	//Player firstplayer("player1"), secondplayer("player2");
+	//playerlist.push_back(firstplayer);
+	//playerlist.push_back(secondplayer);
 
 	cout << "Players in this match:" << endl;
 	for (Player &p : playerlist) {
@@ -186,35 +594,48 @@ void driver::run() {
 	// map creation wizard.
 	// ===========================================================
 	// testmap.map is a simple map with two adjacent countries, c1 and c2. c1 will go to player1 and c2 to player2, so use that to test victory conditions.
-	MapManager* manager = new MapManager("testmap");
+	MapManager* manager = runMapCreator();
+	cout << "loading here " << endl;
 	manager->loadMap();
 	if (manager->isValid()) {
 		cout << "Map file is valid!" << endl;
 	}
 
+
 	// fill the driver's country and continents list, based on the map loaded above.
 	continents = manager->getContinents();
 	countries = manager->getCountries();
+	cout << countries.size();
 
 	for (Continent& continent : continents) {
 		continent.setArmyBonus(2);
 	}
 
-	int i = 0;
-	for (Country& country : countries)
-	{
-		string name = country.getName();
-		string continent = country.getContinent();
 
-		int currentindex = i % playerlist.size();
-		country.setAll(playerlist[currentindex], 10,  name , continent);
+
+	int i = 0;
+	int currentindex;
+	for (Country& country : countries)
+		for (int indexofcountries = 0; indexofcountries < countries.size();indexofcountries++)
+	{
+		string name = countries[indexofcountries].getName();
+		string continent = countries[indexofcountries].getContinent();
+
+		currentindex = rand() % (playerlist.size());//randomly adds countries to players
+		countries[indexofcountries].setAll(playerlist[currentindex], 10, name, continent);//sets the countries owner, armycount(equal to 10), name and continent
 		i++;
 	}
 
+	
+	
+	
+	//display Country ownership
 	cout << "\nCountry ownership:" << endl;
 	for(Country& country : countries) {
 		cout << country.getOwner()->getPlayerName() << " owns " << country.getName() << "." << endl;
 	}	
+
+
 
 	// =============================================
 	// C. set up the game logger, based on user input.
@@ -279,6 +700,51 @@ void driver::run() {
 
 	cout << "\nLog setup complete. Stack of custom decorators:\n" << endl;
 
+
+
+	// GAME STATISTICS OBSERVER/DECORATOR HERE
+	//asks for user input to determine what type of game statistics to display
+	    bool statcheck=true;
+	GameStatSubject *sub;
+	Observer *obs;
+	while(statcheck)
+	{
+	string userinput;
+	std::cout<< "Press 1 for basic statistics, 2 for World %, 3 for Win %, 4 for both World and Win %"<<std::endl;
+	getline(cin, userinput);
+
+	if (userinput=="1")
+	{
+	sub=new GameStatSubject(playerlist,countries);//creates a basic observer pattern
+	obs=new GameStatObserver(sub);
+	statcheck=false;
+	}
+	else if (userinput=="2")
+	{
+		sub = new GameStatSubject(playerlist, countries);//creates an observer pattern with a single decorator (the world % owned)
+	obs=new GameStatObserver(sub);
+	obs = new WorldControlledDecorator(obs, playerlist, countries, sub);
+	statcheck=false;
+	}
+	else if (userinput=="3")
+	{
+		sub = new GameStatSubject(playerlist, countries);//creates an observer pattern with a single decorator (the win %)
+	obs=new GameStatObserver(sub);
+	obs = new BattlesWonDecorator(obs, playerlist, sub);
+	statcheck=false;
+	}
+	else if (userinput=="4")
+	{
+		sub = new GameStatSubject(playerlist, countries);//creates an observer pattern with both decorators, the world % owned first then the win %
+	obs=new GameStatObserver(sub);
+	obs = new WorldControlledDecorator(obs, playerlist, countries, sub);
+	obs = new BattlesWonDecorator(obs, playerlist, sub);
+	statcheck=false;
+	}
+	}
+
+	
+
 	printobservers();
 
 	cout << "\nGame is ready.\n" << endl;
@@ -298,7 +764,6 @@ void driver::run() {
 	while (playerlist.size() > 1) {
 		stringstream currentturn;
 
-		cout << "(c2's owner: " << countries[1].getOwner()->getPlayerName() << ")" << endl;
 
 		// before doing anything, check if this player should still be in the game:
 		// if no countries return the current player as the owner, they are removed from the game
@@ -333,6 +798,23 @@ void driver::run() {
 		reinforce(*it);
 		attack(*it);
 		fortify(*it);
+
+		//game statistics notify
+		sub->Notify();
+
+		cout << "\n\n\n";
+
+		////////////////////////////////////////////////////player observer
+		PlayerSubject *ps1 = new PlayerSubject(*it, countries, continents);//create observable and observer classes
+		PlayerView *pv1 = new PlayerView(ps1);
+
+		ps1->Notify();
+		cout << "\n\n\n";
+
+		
+		
+
+
 
 		// after all phases, move to next player, or if end of playerlist has been reached, move back to beginning
 		++it;
